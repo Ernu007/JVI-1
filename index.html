@@ -4,13 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>JVI Carga &amp; Serviços — Transporte de Carga e Encomendas em Moçambique</title>
-<meta name="description" content="Empresa moçambicana de transporte, tratamento e distribuição de cargas, encomendas e objectos postais por via aérea e rodoviária. Peça o seu orçamento.">
+<meta name="description" content="Empresa moçambicana de transporte, tratamento e distribuição de cargas, encomendas e objectos postais. Peça o seu orçamento de transporte.">
 <meta name="theme-color" content="#0F172A">
 <link rel="icon" href="assets/favicon.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="stylesheet" href="css/fontes.css">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/privacidade.css">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_MZ">
+<meta property="og:site_name" content="JVI Carga & Serviços, Lda">
+<meta property="og:title" content="JVI Carga & Serviços — Transporte de Carga e Encomendas em Moçambique">
+<meta property="og:description" content="Transporte, tratamento e distribuição de cargas, encomendas e objectos postais em todo o Moçambique. Peça o seu orçamento.">
+<meta property="og:image" content="assets/logo-full.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://jvicargaservicos.co.mz/">
 </head>
 <body>
 
@@ -155,6 +164,12 @@
     <div class="grelha-3">
       <article class="servico revelar">
         <div class="servico__figura">
+          <a class="selo" href="carta/jvi-carta-apresentacao.pdf" download aria-label="Descarregar a carta de apresentação da JVI (PDF, 10 páginas)">
+            <span class="selo__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            </span>
+            Descarregar perfil da JVI
+          </a>
           <span class="servico__n">01</span>
           <img src="assets/img/camiao.png" alt="Camião de carga da JVI" loading="lazy" width="1000" height="625">
         </div>
@@ -209,7 +224,7 @@
   <div class="container">
     <span class="etiqueta">Fluxo operacional</span>
     <h2 class="titulo-seccao titulo-seccao--centro">Da recolha à entrega, <span class="verde">cinco etapas</span> controladas.</h2>
-    <p class="subtitulo-seccao subtitulo-seccao--centro">Cada encomenda segue um percurso vertical e rastreável, com supervisão em todas as phases.</p>
+    <p class="subtitulo-seccao subtitulo-seccao--centro">Cada encomenda segue um percurso vertical e rastreável, com supervisão em todas as fases.</p>
 
     <div class="fluxo reveal" id="fluxoLista">
       <div class="fluxo__linha" id="fluxoLinha" aria-hidden="true"></div>
@@ -414,7 +429,11 @@
     </div>
     <div class="rodape__base">
       <span>© <span id="ano">2026</span> JVI Carga &amp; Serviços, Lda · Moçambique</span>
-      <span>Transportes de Carga · Correio · Soluções Logísticas</span>
+      <nav class="rodape__links" aria-label="Enlaces legais">
+        <a href="#" data-legal="privacidade">Política de Privacidade</a>
+        <a href="carta/jvi-carta-apresentacao.pdf" download>Carta de Apresentação</a>
+        <a href="mailto:jvicargaservicos@gmail.com">Contacto</a>
+      </nav>
     </div>
   </div>
 </footer>
@@ -499,7 +518,7 @@
           <div class="campo" data-campo="emissor_contacto">
             <label for="emissor_contacto">Contactos <span class="ob">*</span></label>
             <input id="emissor_contacto" name="emissor_contacto" type="tel" placeholder="+258 8… … … …" required autocomplete="tel">
-            <span class="campo__erro">Indique um contacto telefone.</span>
+            <span class="campo__erro">Indique um número de telefone.</span>
           </div>
           <div class="campo" data-campo="emissor_email">
             <label for="emissor_email">Email</label>
@@ -625,6 +644,12 @@
           </div>
         </div>
 
+        <!-- Anti-spam: invisivel a humanos, attractivo a bots. -->
+        <div class="hp" aria-hidden="true">
+          <label for="website">Não preencha este campo</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
         <div class="canais">
           <h4>Como quer enviar o pedido?</h4>
           <div class="radio">
@@ -641,6 +666,11 @@
               Só Email <span style="font-size:12px;color:var(--texto-fraco)">(formal, empresas)</span>
             </label>
           </div>
+        </div>
+
+        <div class="consent" data-consent>
+          <input type="checkbox" name="consentimento" value="sim" id="consentimento">
+          <label for="consentimento">Li e aceito a <a href="#" data-legal="privacidade">Política de Privacidade</a> da JVI Carga &amp; Serviços, e autorizo o tratamento dos dados indicados para efeitos de orçamento e contacto comercial. <span style="color:var(--laranja)">*</span></label>
         </div>
 
         <div class="resumo" id="resumo">
@@ -664,6 +694,92 @@
     </form>
   </div>
 </template>
+
+<!-- ===================== POLÍTICA DE PRIVACIDADE ===================== -->
+<div class="legal" id="legalPrivacidade" data-aberto="false" role="dialog" aria-modal="true" aria-labelledby="ppTitulo">
+  <div class="legal__fundo" data-fechar-legal></div>
+  <div class="legal__caixa">
+    <button class="legal__fechar" data-fechar-legal aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="etiqueta">Privacidade</span>
+    <h2 id="ppTitulo" class="titulo-seccao" style="font-size:clamp(24px,4vw,32px)">Política de <span class="verde">Privacidade</span></h2>
+    <div class="pp">
+      <p class="pp__meta">JVI Carga &amp; Serviços, Lda · Av. 19 de Outubro, Terminal de Cargas Nº 113, Aeroporto de Maputo, Moçambique · NUEL 100449137 · NUIT 400501424 · jvicargaservicos@gmail.com</p>
+
+      <h3>Quem trata os seus dados</h3>
+      <p>A JVI Carga &amp; Serviços, Lda., com sede no Terminal de Cargas Nº 113 do Aeroporto de Maputo, é a entidade responsável pelo tratamento dos dados pessoais recolhidos através deste site.</p>
+
+      <h3>Que dados recolhemos</h3>
+      <p>Apenas os dados que voluntariamente introduz no formulário de pedido de orçamento:</p>
+      <ul>
+        <li><strong>Emissor:</strong> nome ou empresa, endereço, telefone e, se indicar, email.</li>
+        <li><strong>Mercadorias:</strong> número de volumes, peso bruto, dimensões, tipo e descrição da carga.</li>
+        <li><strong>Receptor:</strong> nome, endereço de destino e contactos.</li>
+        <li><strong>Valores e pagamento:</strong> valor estimado, forma de pagamento e observações.</li>
+      </ul>
+      <p>Não recolhemos categorias especiais de dados, nem dados de crianças.</p>
+
+      <h3>Para que usamos os dados</h3>
+      <ul>
+        <li>Elaborar e enviar a proposta de orçamento solicitada.</li>
+        <li>Estabelecer contacto directo sobre a remessa, por WhatsApp, telefone ou email.</li>
+        <li>Cumprir obrigações legais, fiscais e contratuais.</li>
+      </ul>
+      <div class="pp__destaque">
+        <p><strong>Não vendemos, alugamos nem cedemos os seus dados a terceiros para fins comerciais.</strong></p>
+      </div>
+
+      <h3>Base legal e prazo de conservação</h3>
+      <p>O tratamento assenta no <strong>consentimento</strong> que dá ao marcar a caixa no formulário e no <strong>execução de contrato</strong>, quando o pedido se converte numa remessa. Conservamos os dados durante <strong>24 meses</strong> a contar da última interacción, findos os quais são eliminados, salvo obrigação legal de guarda diferente.</p>
+
+      <h3>Onde ficam guardados</h3>
+      <p>Os pedidos são guardados numa folha de cálculo de acesso restrito da JVI e/ou enviados por email para a caixa <strong>jvicargaservicos@gmail.com</strong>. O site é alojado na Netlify, plataforma que processa os dados técnicos da visita nos seus próprios servidores.</p>
+
+      <h3>Cookies</h3>
+      <p><strong>Este site não utiliza cookies.</strong> Não há rastreio de publicidade, nem analítica de terceiros. A tipografia é alojada no próprio site, pelo que o seu endereço IP não é transmitido a servidores externos de Google.</p>
+
+      <h3>Os seus direitos</h3>
+      <p>Pode, a qualquer momento, pedir o <strong>acesso</strong>, a <strong>rectificação</strong>, o <strong>apagamento</strong>, a <strong>limitação</strong> ou a <strong>oposição</strong> ao tratamento dos seus dados, bem como retirar o consentimento. Basta escrever para <strong>jvicargaservicos@gmail.com</strong> ou ligar <strong>+258 87 555 8005</strong>. Tem ainda o direito de reclamar junto da entidade competente de protecção de dados em Moçambique.</p>
+
+      <h3>Alterações a esta política</h3>
+      <p>Podemos actualizar este documento para reflectir mudanças legais ou operacionais. A data da última revisão é indicada abaixo e qualquer alteração significativa será assinalada nesta página.</p>
+    </div>
+    <p class="pp__meta" style="margin:24px 0 0;border:0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08)">Última revisão: Setembro de 2026</p>
+  </div>
+</div>
+
+<!-- ===================== MAPA DO SITE ===================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "JVI Carga & Serviços, Lda",
+  "alternateName": "JVI Carga e Serviços",
+  "description": "Empresa moçambicana de transporte, tratamento e distribuição de cargas, encomendas e objectos postais por via aérea e rodoviária.",
+  "url": "https://jvicargaservicos.co.mz/",
+  "logo": "https://jvicargaservicos.co.mz/assets/logo-full.png",
+  "foundingDate": "2014",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. 19 de Outubro, Terminal de Cargas Nº 113, Aeroporto de Maputo",
+    "addressLocality": "Maputo",
+    "addressCountry": "MZ"
+  },
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "telephone": "+258875558005",
+    "contactType": "customer service",
+    "areaServed": "MZ",
+    "availableLanguage": ["pt"]
+  }],
+  "email": "jvicargaservicos@gmail.com",
+  "identifier": [
+    { "@type": "PropertyValue", "name": "NUEL", "value": "100449137" },
+    { "@type": "PropertyValue", "name": "NUIT", "value": "400501424" }
+  ]
+}
+</script>
 
 <script src="js/main.js" type="module"></script>
 </body>

@@ -163,10 +163,47 @@ O `logo.png` também pode ser substituído pelo PNG oficial com o mesmo nome
 ## 9. Detalhes técnicos
 
 - **Sem dependências**, sem passo de build. Abre directamente no browser.
-- **Peso total** ~700 KB, maioritariamente imagens.
+- **Peso total** ~1,9 MB (dos quais 1,7 MB é o PDF da carta).
 - **Responsivo** de 360 px a 1920 px, testado sem overflow horizontal.
 - **`prefers-reduced-motion`** respeitado: sem rota animada nem caixas 3D.
-- **Acessibilidade**: foco visível, `aria-*` nos diálogos e nos passos do
-  formulário, mensagens de erro ligadas ao campo.
-- **SEO**: meta description, `theme-color`, `lang="pt-MZ"`, cabeçalhos `h1`–`h3`
-  em ordem.
+- **Acessibilidade**: todos os contrastes passam WCAG AA (pior caso 4,79:1),
+  foco visível, `aria-describedby` nos erros de campo, focus trap no modal,
+  `aria-live` nas mensagens de estado, 1 único `h1`.
+- **SEO**: meta description, Open Graph, Twitter Card, `robots.txt`,
+  `sitemap.xml`, JSON-LD `Organization`, cabeçalhos `h1`–`h4` em ordem.
+
+---
+
+## 10. Segurança e privacidade
+
+| Medida | Onde |
+|---|---|
+| Escape de HTML em todo o input | `functions/submit.js` → `esc()` |
+| Protecção contra CSV/formula injection na Sheet | `functions/submit.js` → `celula()` |
+| Limite de tamanho por campo (8–1200 chars) | `functions/submit.js` → `LIMITES` |
+| Validação estrita de email e telefone | `functions/submit.js` → `RE_EMAIL`, `RE_TEL` |
+| Honeypot + descarte de formulários < 3 s | campo `website` e `_t` |
+| Rate limit: 1 pedido / 20 s por IP | `functions/submit.js` → `Janela` |
+| Limite de corpo do pedido (20 KB) | `functions/submit.js` |
+| Métodos não-POST recusados (405) | `functions/submit.js` |
+| CSP, HSTS, `X-Frame-Options`, `nosniff`, `Permissions-Policy` | `netlify.toml` |
+| Consentimento obrigatório antes de enviar | `index.html` + `js/main.js` |
+| Política de privacidade publicada | diálogo acessível no rodapé |
+
+**Zero cookies.** A tipografia é auto-hospedada em `assets/fonts/`, portanto
+não há pedidos ao Google Fonts e o IP do visitante não sai do site.
+Verificado: `performance.getEntriesByType('resource')` devolve `[]`.
+
+**Antes de publicar**, define no Netlify o domínio real e actualiza em
+`index.html` (`<link rel="canonical">`, Open Graph) e em `robots.txt` +
+`sitemap.xml`. Hoje apontam para `https://jvicargaservicos.co.mz/`.
+
+---
+
+## 11. Geração do PDF da carta
+
+Ao alterar `carta/index.html`, `carta/style.css` ou `carta/mapa.js`, volta a
+gerar o PDF (ver secção 5). O botão de download na página e no selo
+`Descarregar perfil da JVI` apontam para o ficheiro em
+`carta/jvi-carta-apresentacao.pdf` — se o PDF não for regenerado, o
+utilizador vê a versão antiga.

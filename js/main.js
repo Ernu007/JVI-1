@@ -523,11 +523,13 @@ function iniciarMapa() {
 const modal = document.getElementById('modal');
 let focoAnterior = null;
 
+const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 function abrirModal() {
   focoAnterior = document.activeElement;
   modal.dataset.aberto = 'true';
   document.body.classList.add('modal-aberto');
-  const primeiro = modal.querySelector('input, button, select');
+  const primeiro = modal.querySelector('.modal__fechar');
   setTimeout(() => primeiro?.focus(), 60);
 }
 function fecharModal() {
@@ -537,7 +539,48 @@ function fecharModal() {
 }
 modal.querySelectorAll('[data-fechar]').forEach((el) => el.addEventListener('click', fecharModal));
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && modal.dataset.aberto === 'true') fecharModal();
+  if (modal.dataset.aberto !== 'true') return;
+  if (e.key === 'Escape') { fecharModal(); return; }
+  /* Focus trap: o Tab nao pode sair do dialogo enquanto estiver aberto */
+  if (e.key !== 'Tab') return;
+  const itens = [...modal.querySelectorAll(FOCAVEIS)].filter((el) => el.offsetParent !== null);
+  if (!itens.length) return;
+  const primeiro = itens[0];
+  const ultimo = itens[itens.length - 1];
+  if (e.shiftKey && document.activeElement === primeiro) { e.preventDefault(); ultimo.focus(); }
+  else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primeiro.focus(); }
+});
+
+/* =========================================================
+   DIÁLOGO LEGAL (política de privacidade)
+   ========================================================= */
+const legal = document.getElementById('legalPrivacidade');
+let focoLegal = null;
+
+function abrirLegal() {
+  focoLegal = document.activeElement;
+  legal.dataset.aberto = 'true';
+  document.body.classList.add('modal-aberto');
+  setTimeout(() => legal.querySelector('.legal__fechar')?.focus(), 60);
+}
+function fecharLegal() {
+  legal.dataset.aberto = 'false';
+  document.body.classList.remove('modal-aberto');
+  focoLegal?.focus();
+}
+document.querySelectorAll('[data-legal="privacidade"]').forEach((el) => {
+  el.addEventListener('click', (e) => { e.preventDefault(); abrirLegal(); });
+});
+legal.querySelectorAll('[data-fechar-legal]').forEach((el) => el.addEventListener('click', fecharLegal));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && legal.dataset.aberto === 'true') fecharLegal();
+  if (e.key !== 'Tab' || legal.dataset.aberto !== 'true') return;
+  const itens = [...legal.querySelectorAll(FOCAVEIS)].filter((el) => el.offsetParent !== null);
+  if (!itens.length) return;
+  const primeiro = itens[0];
+  const ultimo = itens[itens.length - 1];
+  if (e.shiftKey && document.activeElement === primeiro) { e.preventDefault(); ultimo.focus(); }
+  else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primeiro.focus(); }
 });
 
 /* =========================================================
@@ -623,6 +666,17 @@ document.querySelectorAll('.orc__form').forEach((form) => {
     if (atual === seccoes.length - 1) actualizarResumo();
   }
 
+  /* Cada erro fica ligado ao seu campo por aria-describedby, para o
+     leitor de ecra anunciar a falha quando o campo recebe o foco. */
+  form.querySelectorAll('.campo[data-campo]').forEach((campo) => {
+    const msg = campo.querySelector('.campo__erro');
+    const inp = campo.querySelector('input, select, textarea');
+    if (msg && inp) {
+      if (!msg.id) msg.id = `${inp.id}-erro`;
+      inp.setAttribute('aria-describedby', msg.id);
+    }
+  });
+
   function actualizarResumo() {
     const g = (n) => form.elements[n]?.value?.trim() || '—';
     const nVol = g('volumes');
@@ -657,14 +711,32 @@ document.querySelectorAll('.orc__form').forEach((form) => {
   btnSeg.addEventListener('click', () => { if (valido(atual)) mostrar(atual + 1); });
   btnAnt.addEventListener('click', () => mostrar(atual - 1));
 
+  const ABERTO_EM = Date.now();
+  const consent = form.querySelector('[data-consent]');
+  const consentCaixa = form.querySelector('input[name="consentimento"]');
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!seccoes.every((_, i) => valido(i))) { mostrar(seccoes.findIndex((_, i) => !valido(i))); return; }
 
+    /* Sem consentimento não enviamos nada: a caixa é obrigatória */
+    if (!consentCaixa.checked) {
+      consent.dataset.erro = 'true';
+      estado.dataset.mostrar = 'true';
+      estado.className = 'estado-envio estado-envio--erro';
+      estado.textContent = 'Para enviar o pedido, precisa de aceitar a Política de Privacidade.';
+      consentCaixa.focus();
+      return;
+    }
+    consent.dataset.erro = 'false';
+
     const dados = Object.fromEntries(new FormData(form).entries());
+    delete dados.consentimento;
     dados.origem = 'site';
     dados.canal = form.querySelector('input[name="canal"]:checked')?.value || 'ambos';
     dados.pagamento = form.querySelector('input[name="pagamento"]:checked')?.value || 'Numerário';
+    /* Tempo de preenchimento: o backend descarta pedidos < 3 s (bots) */
+    dados._t = Date.now() - ABERTO_EM;
 
     btnEnv.disabled = true;
     btnEnv.textContent = 'A enviar…';
@@ -684,6 +756,8 @@ document.querySelectorAll('.orc__form').forEach((form) => {
 
     let gravouSheet = false;
     let enviouEmail = false;
+    let falhou = false;
+    let mensagem = '';
 
     try {
       const r = await fetch(JVI.endpoint, {
@@ -694,11 +768,29 @@ document.querySelectorAll('.orc__form').forEach((form) => {
       const resp = await r.json().catch(() => ({}));
       gravouSheet = Boolean(resp.sheet);
       enviouEmail = Boolean(resp.email);
+      if (r.status === 429) { falhou = true; mensagem = resp.erro || 'Demasiados pedidos seguidos. Aguarde um momento e tente de novo.'; }
+      else if (r.status === 400) { falhou = true; mensagem = resp.erro ? `Não foi possível enviar: ${resp.erro}. Verifique os dados e tente de novo.` : 'Dados inválidos.'; }
+      else if (r.status >= 500) { falhou = true; mensagem = 'O serviço de registo está temporariamente indisponível.'; }
     } catch {
-      // sem backend — seguimos para o WhatsApp
+      falhou = true;
     }
 
     const canal = dados.canal;
+
+    if (falhou) {
+      estado.className = 'estado-envio estado-envio--erro';
+      estado.textContent = mensagem + ' Pode enviar o pedido directamente por WhatsApp ou email — os botões ao lado.';
+      if (canal === 'ambos' || canal === 'whatsapp') {
+        window.open(`https://wa.me/${JVI.whatsapp}?text=${encodeURIComponent(textoWA)}`, '_blank', 'noopener');
+      }
+      if (canal === 'email') {
+        window.location.href = `mailto:${JVI.email}?subject=${encodeURIComponent('Pedido de orçamento de transporte')}&body=${encodeURIComponent(textoWA)}`;
+      }
+      btnEnv.disabled = false;
+      btnEnv.textContent = 'Enviar pedido';
+      return;
+    }
+
     estado.className = 'estado-envio estado-envio--ok';
     estado.textContent =
       'Pedido registado. A JVI Carga & Serviços já recebeu o seu pedido de orçamento e vai entrar em contacto consigo.';
