@@ -1,0 +1,14 @@
+# Dependências / segredos
+.env
+.env.local
+*.pem
+node_modules/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+.netlify/
+.cache/
