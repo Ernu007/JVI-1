@@ -84,7 +84,14 @@
     <div class="hero__conteudo">
       <span class="etiqueta">Licenciada · De Rovuma ao Maputo</span>
 
-      <h1>A sua carga,<br><em>em mãos seguras.</em></h1>
+      <h1>
+        <span class="h1linha">
+          <span class="pal" style="--i:0">A</span> <span class="pal" style="--i:1">sua</span> <span class="pal" style="--i:2">carga,</span>
+        </span>
+        <span class="h1linha">
+          <span class="pal verde" style="--i:3">em</span> <span class="pal verde" style="--i:4">mãos</span> <span class="pal verde" style="--i:5">seguras.</span>
+        </span>
+      </h1>
 
       <p class="hero__lead">Transporte, tratamento e distribuição de encomendas e objectos postais em todo o território moçambicano e internacional — por via aérea e rodoviária, com mais de 10 anos de rigor operacional.</p>
 
@@ -115,6 +122,11 @@
       </div>
     </div>
   </div>
+
+  <p class="hero__rota" id="heroRota" aria-hidden="true">
+    <span class="hero__rota-ponto"></span>
+    <span id="heroRotaTxt">Pemba → Maputo</span>
+  </p>
 
   <div class="scroll-hint" aria-hidden="true">
     <span>Deslize</span>
@@ -272,25 +284,28 @@
     <p class="subtitulo-seccao">Do Rovuma ao Maputo, com operações activas nas principais terminais aeroportuárias do país.</p>
 
     <div class="mapa-zona revelar">
-      <div class="mapa-caixa">
-        <div class="mapa-grafico">
-          <canvas id="canvasMapa" aria-label="Mapa de Moçambique com as rotas da JVI" role="img"></canvas>
+      <div class="mapa-lado">
+        <div class="mapa-caixa">
+          <div class="mapa-grafico">
+            <canvas id="canvasMapa" aria-label="Mapa de Moçambique com as rotas da JVI" role="img"></canvas>
+          </div>
+          <p class="mapa-aviso"><b>Hub principal:</b> Terminal de Carga do Aeroporto de Maputo, Av. 19 de Outubro, Terminal de Cargas Nº 113.</p>
         </div>
-        <p class="mapa-aviso"><b>Hub principal:</b> Terminal de Carga do Aeroporto de Maputo, Av. 19 de Outubro, Terminal de Cargas Nº 113.</p>
-      </div>
-      <div class="rotas" id="rotasLista">
-        <span class="rota rota--hub">Maputo — Hub principal</span>
-        <span class="rota">Matola</span>
-        <span class="rota">Xai-Xai</span>
-        <span class="rota">Beira</span>
-        <span class="rota">Chimoio</span>
-        <span class="rota">Tete</span>
-        <span class="rota">Quelimane</span>
-        <span class="rota">Nampula</span>
-        <span class="rota">Lichinga</span>
-        <span class="rota">Pemba</span>
-        <span class="rota">Palma</span>
-        <span class="rota">Aeroportos nacionais</span>
+
+        <div class="rotas" id="rotasLista">
+          <span class="rota rota--hub">Maputo — Hub</span>
+          <span class="rota">Matola</span>
+          <span class="rota">Xai-Xai</span>
+          <span class="rota">Inhambane</span>
+          <span class="rota">Beira</span>
+          <span class="rota">Chimoio</span>
+          <span class="rota">Tete</span>
+          <span class="rota">Quelimane</span>
+          <span class="rota">Nampula</span>
+          <span class="rota">Lichinga</span>
+          <span class="rota">Pemba</span>
+          <span class="rota">Aeroportos nacionais</span>
+        </div>
       </div>
     </div>
   </div>

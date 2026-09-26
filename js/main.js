@@ -112,251 +112,66 @@ if (etapas.length) {
 /* =========================================================
    HERO — rota a desenhar-se + caixas 3D
    ========================================================= */
+/* =========================================================
+   HERO — voo da carga (Pemba -> Maputo) e revelacao do titulo
+   ========================================================= */
+import { iniciarVoo, ROTA } from './hero-voo.js';
+
+const NOME_PALAVRA = {
+  0: 'Cabo Delgado', 1: 'Nampula', 2: 'Zambézia',
+  3: 'Sofala', 4: 'Gaza', 5: 'Maputo',
+};
+
 function iniciarHero() {
   const canvas = document.getElementById('canvasHero');
-  if (!canvas) return;
+  const hero = document.getElementById('hero');
+  if (!canvas || !hero) return;
 
-  const ctx = canvas.getContext('2d');
-  let w = 0;
-  let h = 0;
-  let dpr = 1;
-  let inicio = null;
-  let caixas = [];
-  let rotas = [];
-  let ultimo = 0;
-
-  const VERDE = '#A9CF44';
-  const LARANJA = '#EA8240';
-
-  /* Rotas desenhadas em canvas 2D — leve em mobile */
-  function criarRotas() {
-    const n = window.innerWidth < 700 ? 3 : 5;
-    rotas = [];
-    for (let i = 0; i < n; i += 1) {
-      const x0 = Math.random() * w;
-      const y0 = h * (0.2 + Math.random() * 0.7);
-      rotas.push({
-        x0,
-        y0,
-        cx: Math.min(w, Math.max(0, x0 + (Math.random() - 0.5) * w * 0.7)),
-        cy: y0 + (Math.random() - 0.5) * h * 0.45,
-        x1: w * (0.35 + Math.random() * 0.75),
-        y1: h * (0.15 + Math.random() * 0.75),
-        atraso: 0.15 + i * 0.28,
-        dur: 1.5 + Math.random() * 0.8,
-        cor: i % 3 === 0 ? LARANJA : VERDE,
-        p: 0,
-      });
-    }
-  }
-
-  function criarCaixas() {
-    const n = window.innerWidth < 700 ? 4 : 9;
-    caixas = [];
-    for (let i = 0; i < n; i += 1) {
-      caixas.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        s: (0.5 + Math.random() * 0.85) * (w < 700 ? 16 : 26),
-        vx: (Math.random() - 0.5) * 0.22,
-        vy: -0.1 - Math.random() * 0.28,
-        r: Math.random() * Math.PI,
-        vr: (Math.random() - 0.5) * 0.008,
-        o: 0.34 + Math.random() * 0.4,
-        fase: Math.random() * Math.PI * 2,
-      });
-    }
-  }
-
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = canvas.clientWidth;
-    h = canvas.clientHeight;
-    canvas.width = Math.max(1, Math.floor(w * dpr));
-    canvas.height = Math.max(1, Math.floor(h * dpr));
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    criarRotas();
-    criarCaixas();
-  }
-
-  /* Ponto numa curva quadrática de Bézier */
-  function bez(p0, p1, p2, t) {
-    const m = 1 - t;
-    return m * m * p0 + 2 * m * t * p1 + t * t * p2;
-  }
-
-  function ease(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
-  function desenharCaixa(c, t) {
-    ctx.save();
-    ctx.translate(c.x, c.y);
-    ctx.rotate(c.r);
-    const s = c.s;
-    const bob = Math.sin(t * 0.0012 + c.fase) * 6;
-    ctx.translate(0, bob);
-    ctx.globalAlpha = c.o;
-
-    const g = ctx.createLinearGradient(-s / 2, -s / 2, s / 2, s / 2);
-    g.addColorStop(0, 'rgba(190,222,100,0.95)');
-    g.addColorStop(1, 'rgba(130,201,30,0.6)');
-    ctx.fillStyle = g;
-    ctx.strokeStyle = 'rgba(232,237,245,0.75)';
-    ctx.lineWidth = 1;
-
-    // face frontal
-    ctx.beginPath();
-    ctx.rect(-s / 2, -s / 2, s, s * 0.72);
-    ctx.fill();
-    ctx.stroke();
-    // face superior (isometria)
-    ctx.beginPath();
-    ctx.moveTo(-s / 2, -s / 2);
-    ctx.lineTo(-s / 2 + s * 0.18, -s / 2 - s * 0.18);
-    ctx.lineTo(s / 2 + s * 0.18, -s / 2 - s * 0.18);
-    ctx.lineTo(s / 2, -s / 2);
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(232,237,245,0.42)';
-    ctx.fill();
-    // face lateral
-    ctx.beginPath();
-    ctx.moveTo(s / 2, -s / 2);
-    ctx.lineTo(s / 2 + s * 0.18, -s / 2 - s * 0.18);
-    ctx.lineTo(s / 2 + s * 0.18, s * 0.72 - s * 0.18);
-    ctx.lineTo(s / 2, s * 0.72);
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(19,30,51,0.72)';
-    ctx.fill();
-    ctx.stroke();
-    // fita
-    ctx.fillStyle = 'rgba(234,130,64,0.9)';
-    ctx.fillRect(-s * 0.08, -s / 2, s * 0.16, s * 0.72);
-    ctx.restore();
-  }
-
-  function frame(agora) {
-    if (!inicio) inicio = agora;
-    const t = (agora - inicio) / 1000;
-    ctx.clearRect(0, 0, w, h);
-
-    /* Rotas a desenhar-se (~2s) */
-    for (const r of rotas) {
-      const tp = Math.min(1, Math.max(0, (t - r.atraso) / r.dur));
-      if (tp <= 0) continue;
-      const p = ease(tp);
-      ctx.save();
-      ctx.globalAlpha = REDUCIDO ? 0.5 : 0.55 * (1 - p * 0.45);
-      ctx.strokeStyle = r.cor;
-      ctx.lineWidth = 1.6;
-      ctx.setLineDash([5, 6]);
-      ctx.beginPath();
-      ctx.moveTo(r.x0, r.y0);
-      ctx.quadraticCurveTo(r.cx, r.cy, r.x1, r.y1);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // cabeça luminosa
-      const hx = bez(r.x0, r.cx, r.x1, p);
-      const hy = bez(r.y0, r.cy, r.y1, p);
-      const grad = ctx.createRadialGradient(hx, hy, 0, hx, hy, 14);
-      grad.addColorStop(0, r.cor);
-      grad.addColorStop(1, 'transparent');
-      ctx.globalAlpha = 0.85;
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(hx, hy, 14, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-
-    /* Caixas a flutuar */
-    if (!REDUCIDO) {
-      const dt = Math.min(40, agora - ultimo) / 16;
-      ultimo = agora;
-      for (const c of caixas) {
-        c.x += c.vx * dt;
-        c.y += c.vy * dt;
-        c.r += c.vr * dt;
-        if (c.y < -60) { c.y = h + 60; c.x = Math.random() * w; }
-        if (c.x < -60) c.x = w + 60;
-        if (c.x > w + 60) c.x = -60;
-        desenharCaixa(c, agora);
-      }
-    } else {
-      for (const c of caixas) desenharCaixa(c, agora);
-    }
-
-    if (t < 3.2) requestAnimationFrame(frame);
-    else if (!REDUCIDO) requestAnimationFrame(frame);
-  }
-
-  resize();
-  window.addEventListener('resize', () => { resize(); }, { passive: true });
+  /* Cada palavra do titulo acende quando o aviao entra na provincia
+     correspondente. Sem o scene, o titulo fica todo visivel. */
+  const palavras = [...hero.querySelectorAll('.pal')];
+  const marca = palavras.map((el) => {
+    el.style.setProperty('--p', '0');
+    return el;
+  });
 
   requestAnimationFrame(() => {
-    document.getElementById('hero')?.classList.add('pronto');
-    frame(performance.now());
+    hero.classList.add('pronto');
+    iniciarVoo(canvas, {
+      aoProgredir(prog) {
+        palavras.forEach((el, i) => {
+          const alvo = (i + 0.35) / palavras.length;
+          const v = Math.max(0, Math.min(1, (prog - alvo) / 0.16));
+          el.style.setProperty('--p', v.toFixed(3));
+        });
+        marca.length; void NOME_PALAVRA; void ROTA;
+      },
+    });
   });
 }
 
 /* =========================================================
-   MAPA DE MOÇAMBIQUE — silhueta + rotas animadas
+   MAPA DE MOÇAMBIQUE — provinces reais
    ------------------------------------------------------------
-   O contorno usa coordenadas geograficas reais (lon, lat) e e
-   projectado para o canvas, para o pais ficar reconhecivel em
-   qualquer tamanho de ecra e as cidades cairem no sitio certo.
+   O desenho vem de js/mapa-dados.js, gerado a partir do
+   geoBoundaries ADM1. Aqui so se faz a projecao, o brilho
+   quando a rota passa e as etiquetas.
    ========================================================= */
-
-// Limites aproximados de Moçambique
-const LON_MIN = 28.4, LON_MAX = 41.0;
-const LAT_MIN = 10.4, LAT_MAX = 27.2;
-const MAPA_L = 260, MAPA_A = 430;
-
-// Contorno: sentido horario a partir do nordeste
-const PAIS_LL = [
-  [40.6, 11.0], [40.5, 12.5], [40.7, 14.5], [39.9, 16.2], [38.8, 16.5],
-  [37.0, 17.2], [35.5, 16.5], [35.0, 15.5], [34.5, 14.0], [34.0, 13.4],
-  [34.4, 12.7], [34.2, 12.0], [32.7, 11.2], [32.5, 12.2], [32.0, 13.0],
-  [31.0, 13.6], [30.5, 14.5], [30.3, 15.6], [29.6, 16.5], [28.9, 17.6],
-  [28.7, 18.5], [29.2, 20.0], [29.8, 21.2], [30.4, 22.4], [31.0, 23.4],
-  [31.2, 24.4], [30.9, 25.0], [32.4, 25.9], [32.6, 25.9], [34.8, 24.0],
-  [35.5, 22.0], [36.8, 20.0], [40.0, 16.5], [40.6, 14.0],
-];
-
-const CIDADES_LL = [
-  { nome: 'Palma',     lon: 40.5,  lat: 11.9, hub: false, dx: 9,   dy: -9,  align: 'left' },
-  { nome: 'Pemba',     lon: 40.5,  lat: 13.0, hub: false, dx: 9,   dy: -9,  align: 'left' },
-  { nome: 'Lichinga',  lon: 35.4,  lat: 13.3, hub: false, dx: -9,  dy: -9,  align: 'right' },
-  { nome: 'Nampula',   lon: 39.3,  lat: 15.1, hub: false, dx: 9,   dy: -9,  align: 'left' },
-  { nome: 'Quelimane', lon: 36.9,  lat: 17.9, hub: false, dx: -9,  dy: 18, align: 'right' },
-  { nome: 'Tete',      lon: 33.6,  lat: 16.2, hub: false, dx: -9,  dy: 4,  align: 'right' },
-  { nome: 'Beira',     lon: 34.8,  lat: 19.8, hub: false, dx: -9,  dy: 4,  align: 'right' },
-  { nome: 'Chimoio',   lon: 37.1,  lat: 19.0, hub: false, dx: 9,   dy: 18, align: 'left' },
-  { nome: 'Xai-Xai',   lon: 33.9,  lat: 25.2, hub: false, dx: 10,  dy: -14, align: 'left' },
-  { nome: 'Matola',    lon: 32.5,  lat: 25.8, hub: false, dx: -9,  dy: 4,  align: 'right' },
-  { nome: 'Maputo',    lon: 32.6,  lat: 25.0, hub: true,  dx: 11,  dy: 20, align: 'left' },
-];
-
-// Projectao equirectangular normalizada para o espaco logico do mapa
-const projLon = (lon) => ((lon - LON_MIN) / (LON_MAX - LON_MIN)) * MAPA_L;
-const projLat = (lat) => ((lat - LAT_MIN) / (LAT_MAX - LAT_MIN)) * MAPA_A;
-
-const PAIS = PAIS_LL.map(([lon, lat]) => [projLon(lon), projLat(lat)]);
-const CIDADES = CIDADES_LL.map((c) => ({
-  ...c, x: projLon(c.lon), y: projLat(c.lat),
-}));
+import { BBOX, PROVINCIAS, CAPITAIS } from './mapa-dados.js';
 
 function iniciarMapa() {
   const canvas = document.getElementById('canvasMapa');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let w = 0, h = 0, esc = 1, ox = 0, oy = 0;
-  let t0 = performance.now();
-  let visivel = false;
+  const reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const LARG = BBOX[2] - BBOX[0];
+  const ALT = BBOX[3] - BBOX[1];
 
-  const VERDE = '#A9CF44';
-  const LARANJA = '#EA8240';
+  let w = 0, h = 0, esc = 1, ox = 0, oy = 0;
+  let visivel = false;
+  let t0 = performance.now();
+  const hub = CAPITAIS['Maputo'];
+  const brilho = {};
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -366,72 +181,81 @@ function iniciarMapa() {
     canvas.width = Math.floor(w * dpr);
     canvas.height = Math.floor(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
     const pad = w < 700 ? 14 : 40;
-    const padTopo = pad;
-    const padBase = w < 700 ? 26 : 40;
-    esc = Math.min((w - pad * 2) / MAPA_L, (h - padTopo - padBase) / MAPA_A);
-    ox = (w - MAPA_L * esc) / 2;
-    oy = padTopo + (h - padTopo - padBase - MAPA_A * esc) / 2;
+    const padB = w < 700 ? 26 : 40;
+    esc = Math.min((w - pad * 2) / LARG, (h - pad - padB) / ALT);
+    ox = (w - LARG * esc) / 2;
+    oy = pad + (h - pad - padB - ALT * esc) / 2;
   }
 
-  const X = (lx) => ox + lx * esc;
-  const Y = (ly) => oy + ly * esc;
+  /* BBOX ja vem projectado (lon*cos, -lat): subtrair a origem e obrigatorio,
+     senao o mapa e desenhado fora do canvas. */
+  const X = (lx) => ox + (lx - BBOX[0]) * esc;
+  const Y = (ly) => oy + (ly - BBOX[1]) * esc;
 
-  function desenharPais() {
-    ctx.save();
+  function caminho(anel, fechar) {
     ctx.beginPath();
-    PAIS.forEach(([lx, ly], i) => (i ? ctx.lineTo(X(lx), Y(ly)) : ctx.moveTo(X(lx), Y(ly))));
-    ctx.closePath();
-    const g = ctx.createLinearGradient(0, Y(0), 0, Y(MAPA_A));
-    g.addColorStop(0, 'rgba(169,207,68,0.16)');
-    g.addColorStop(0.5, 'rgba(169,207,68,0.06)');
-    g.addColorStop(1, 'rgba(169,207,68,0.02)');
-    ctx.fillStyle = g;
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(169,207,68,0.6)';
-    ctx.lineWidth = 1.6;
-    ctx.lineJoin = 'round';
-    ctx.stroke();
-    ctx.restore();
+    for (let i = 0; i < anel.length; i += 1) {
+      if (i === 0) ctx.moveTo(X(anel[i][0]), Y(anel[i][1]));
+      else ctx.lineTo(X(anel[i][0]), Y(anel[i][1]));
+    }
+    if (fechar) ctx.closePath();
   }
 
-  function etiqueta(c, cor) {
+  function etiqueta(x, y, t, cor, align) {
     ctx.save();
-    ctx.font = '700 12px "Plus Jakarta Sans", sans-serif';
-    ctx.fillStyle = cor;
-    ctx.textAlign = c.align === 'right' ? 'right' : 'left';
+    ctx.font = '700 11px "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = align;
     ctx.textBaseline = 'middle';
-    ctx.fillText(c.nome, X(c.x) + c.dx, Y(c.y) + c.dy);
+    ctx.lineWidth = 3.5;
+    ctx.strokeStyle = '#0F172A';
+    ctx.lineJoin = 'round';
+    ctx.strokeText(t, x, y);
+    ctx.fillStyle = cor;
+    ctx.fillText(t, x, y);
     ctx.restore();
   }
 
-  function frame(agora) {
-    const t = (agora - t0) / 1000;
+  function desenhar(t) {
     ctx.clearRect(0, 0, w, h);
-    desenharPais();
 
-    const hub = CIDADES.find((c) => c.hub);
-    const hx = X(hub.x);
-    const hy = Y(hub.y);
-    const etiquetas = [];
+    // provincia a provincia: exterior desenhado por cima da linha verde
+    for (const nome in PROVINCIAS) {
+      const b = brilho[nome] || 0;
+      for (const anel of PROVINCIAS[nome]) {
+        caminho(anel, true);
+        if (anel === PROVINCIAS[nome][0]) {
+          ctx.fillStyle = b > 0
+            ? `rgba(169,207,68,${(0.05 + 0.26 * b).toFixed(3)})`
+            : 'rgba(169,207,68,0.035)';
+          ctx.fill();
+        }
+        ctx.strokeStyle = b > 0
+          ? `rgba(169,207,68,${(0.4 + 0.5 * b).toFixed(3)})`
+          : 'rgba(169,207,68,0.5)';
+        ctx.lineWidth = 1 + b * 1.1;
+        ctx.stroke();
+      }
+    }
 
-    for (const c of CIDADES) {
-      if (c.hub) continue;
+    // rota de cada capital ate ao hub
+    for (const nome in CAPITAIS) {
+      if (nome === 'Maputo') continue;
+      const c = CAPITAIS[nome];
+      const p = Math.max(0, Math.min(1, (t - (distancia(c, hub) / 9)) * 1.2));
+      if (p <= 0) continue;
       const x = X(c.x);
       const y = Y(c.y);
-      const dist = Math.hypot(hx - x, hy - y);
-      const p = Math.min(1, Math.max(0, (t - dist / 900) * 1.15));
-      if (p <= 0) continue;
-
+      const hx = X(hub.x);
+      const hy = Y(hub.y);
       const ccx = (x + hx) / 2 + (hy - y) * 0.18;
       const ccy = (y + hy) / 2 - (hx - x) * 0.18;
 
       ctx.save();
-      ctx.globalAlpha = 0.5;
-      ctx.strokeStyle = 'rgba(169,207,68,0.7)';
-      ctx.lineWidth = 1.4;
       ctx.setLineDash([4, 5]);
+      ctx.globalAlpha = 0.5;
+      ctx.strokeStyle = 'rgba(169,207,68,0.75)';
+      ctx.lineWidth = 1.3;
       ctx.beginPath();
       ctx.moveTo(x, y);
       ctx.quadraticCurveTo(ccx, ccy, hx, hy);
@@ -442,79 +266,83 @@ function iniciarMapa() {
       const m = 1 - e;
       const tx = m * m * x + 2 * m * e * ccx + e * e * hx;
       const ty = m * m * y + 2 * m * e * ccy + e * e * hy;
-      const rg = ctx.createRadialGradient(tx, ty, 0, tx, ty, 10);
-      rg.addColorStop(0, VERDE);
+      const rg = ctx.createRadialGradient(tx, ty, 0, tx, ty, 9);
+      rg.addColorStop(0, '#A9CF44');
       rg.addColorStop(1, 'transparent');
       ctx.globalAlpha = 0.9;
       ctx.fillStyle = rg;
       ctx.beginPath();
-      ctx.arc(tx, ty, 10, 0, Math.PI * 2);
+      ctx.arc(tx, ty, 9, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
 
-      ctx.save();
-      ctx.fillStyle = VERDE;
+      ctx.fillStyle = '#A9CF44';
       ctx.beginPath();
-      ctx.arc(x, y, 3.6, 0, Math.PI * 2);
+      ctx.arc(x, y, 3.4, 0, Math.PI * 2);
       ctx.fill();
-      ctx.globalAlpha = 0.35;
-      ctx.beginPath();
-      ctx.arc(x, y, 8 + Math.sin(t * 2 + x) * 2.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-
-      if (w > 430) etiquetas.push(c);
     }
 
+    // hub
+    const hx = X(hub.x);
+    const hy = Y(hub.y);
+    const pulso = 13 + Math.sin(t * 2.2) * 4;
     ctx.save();
-    const pulso = 14 + Math.sin(t * 2.4) * 5;
-    const hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, 30);
-    hg.addColorStop(0, 'rgba(234,130,64,0.8)');
+    const hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, 28);
+    hg.addColorStop(0, 'rgba(234,130,64,0.75)');
     hg.addColorStop(1, 'transparent');
     ctx.fillStyle = hg;
     ctx.beginPath();
-    ctx.arc(hx, hy, 30, 0, Math.PI * 2);
+    ctx.arc(hx, hy, 28, 0, Math.PI * 2);
     ctx.fill();
     ctx.globalAlpha = 0.55;
-    ctx.strokeStyle = LARANJA;
-    ctx.lineWidth = 1.4;
+    ctx.strokeStyle = '#EA8240';
+    ctx.lineWidth = 1.3;
     ctx.beginPath();
     ctx.arc(hx, hy, pulso, 0, Math.PI * 2);
     ctx.stroke();
     ctx.globalAlpha = 1;
-    ctx.fillStyle = LARANJA;
+    ctx.fillStyle = '#EA8240';
     ctx.beginPath();
-    ctx.arc(hx, hy, 5.5, 0, Math.PI * 2);
+    ctx.arc(hx, hy, 5, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 
-    // etiquetas por ultimo, para o brilho do hub nao as tapar
+    // nomes das capitais, por ultimo para ficarem por cima
     if (w > 430) {
-      etiquetas.forEach((c) => etiqueta(c, 'rgba(203,213,225,0.88)'));
-      etiqueta(hub, LARANJA);
+      for (const nome in CAPITAIS) {
+        const c = CAPITAIS[nome];
+        etiqueta(X(c.x) + (c.x < 34 ? -9 : 9), Y(c.y) + 13, c.nome,
+          '#A9CF44', c.x < 34 ? 'right' : 'left');
+      }
     }
+  }
 
-    if (visivel) requestAnimationFrame(frame);
+  function distancia(a, b) {
+    return Math.hypot(a.x - b.x, a.y - b.y);
   }
 
   resize();
-  window.addEventListener('resize', () => {
-    resize();
-    if (visivel) frame(performance.now());
-  }, { passive: true });
+  window.addEventListener('resize', () => { if (visivel) desenhar((performance.now() - t0) / 1000); }, { passive: true });
 
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(
-      (e) => {
-        visivel = e[0].isIntersecting;
-        if (visivel) { resize(); t0 = performance.now(); frame(performance.now()); }
-      },
-      { threshold: 0.15 }
-    ).observe(canvas);
+    new IntersectionObserver((e) => {
+      visivel = e[0].isIntersecting;
+      if (!visivel) return;
+      resize();
+      t0 = performance.now();
+      if (reduzir) { desenhar(3); return; }
+      const passo = (agora) => {
+        if (!visivel) return;
+        desenhar((agora - t0) / 1000);
+        requestAnimationFrame(passo);
+      };
+      requestAnimationFrame(passo);
+    }, { threshold: 0.15 }).observe(canvas);
   } else {
     visivel = true;
-    frame(performance.now());
+    desenhar(3);
   }
+  void brilho;
 }
 
 /* =========================================================
