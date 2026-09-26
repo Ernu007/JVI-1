@@ -35,10 +35,10 @@
 
 /* Recolha de consentimento junto ao botão de envio */
 .consent {
-  display: flex; gap: 11px; align-items: flex-start;
-  margin-top: 22px; padding: 15px 17px; border-radius: 12px;
+  display: flex; gap: 10px; align-items: flex-start;
+  margin-top: 16px; padding: 12px 15px; border-radius: 12px;
   background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 13px; color: var(--texto-fraco); line-height: 1.6;
+  font-size: 12.5px; color: var(--texto-fraco); line-height: 1.55;
 }
 .consent input { accent-color: var(--verde); width: 17px; height: 17px; flex: none; margin-top: 1px; }
 .consent a { color: var(--verde); text-decoration: underline; text-underline-offset: 2px; }

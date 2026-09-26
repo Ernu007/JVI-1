@@ -514,12 +514,13 @@ ul { list-style: none; }
 .form-seccao[data-ativa="true"] { display: block; animation: entra 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
 @keyframes entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-.form-seccao h3 { font-size: 22px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.02em; }
-.form-seccao > p { font-size: 14px; color: var(--texto-fraco); margin-bottom: 24px; }
+.form-seccao h3 { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.02em; }
+.form-seccao > p { font-size: 13.5px; color: var(--texto-fraco); margin-bottom: 18px; }
 
-.campos { display: grid; gap: 16px; }
+.campos { display: grid; gap: 14px; }
 @media (min-width: 640px) { .campos--2 { grid-template-columns: repeat(2, 1fr); } }
-.campo { display: grid; gap: 7px; }
+@media (min-width: 900px) { .campos--3 { grid-template-columns: repeat(3, 1fr); } }
+.campo { display: grid; gap: 6px; align-content: start; }
 .campo--largo { grid-column: 1 / -1; }
 .campo label { font-size: 12.5px; font-weight: 700; color: var(--texto-suave); letter-spacing: 0.02em; }
 .campo label .ob { color: var(--laranja); }
@@ -529,7 +530,7 @@ ul { list-style: none; }
   border: 1px solid rgba(255, 255, 255, 0.11); font: inherit; font-size: 15px;
   transition: border-color var(--transicao), background var(--transicao), box-shadow var(--transicao);
 }
-.campo textarea { min-height: 96px; resize: vertical; }
+.campo textarea { min-height: 68px; resize: vertical; }
 .campo select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A9CF44' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 17px; padding-right: 42px; }
 .campo select option { background: var(--base-2); color: var(--texto); }
 .campo input::placeholder, .campo textarea::placeholder { color: rgba(203, 213, 225, 0.62); }
@@ -543,18 +544,24 @@ ul { list-style: none; }
 .campo__erro { font-size: 12px; color: #FCA5A5; display: none; }
 .campo[data-erro="true"] .campo__erro { display: block; }
 
-.form-nav { display: flex; gap: 12px; justify-content: space-between; margin-top: 28px; }
+.form-nav { display: flex; gap: 12px; justify-content: space-between; margin-top: 20px; }
 .form-nav .btn--vidro[disabled] { opacity: 0.35; pointer-events: none; }
 
 /* Canal de envio */
-.canais { margin-top: 30px; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
-.canais h4 { font-size: 15px; font-weight: 800; margin-bottom: 14px; }
-.radio { display: grid; gap: 10px; }
+.canais { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+.canais h4 { font-size: 14px; font-weight: 800; margin-bottom: 11px; }
+.radio { display: grid; gap: 9px; }
+@media (min-width: 360px) { .radio { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 620px) { .radio { grid-template-columns: repeat(2, 1fr); } }
+/* Opcoes em linha: poupa altura no passo mais longo do formulario */
+@media (min-width: 780px) {
+  .radio--pagamento { grid-template-columns: repeat(4, 1fr); }
+  .radio--canal { grid-template-columns: repeat(3, 1fr); }
+}
 .radio label {
-  display: flex; align-items: center; gap: 11px; padding: 14px 16px; cursor: pointer;
-  border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03); font-size: 14px; font-weight: 600;
+  display: flex; align-items: center; gap: 10px; padding: 11px 13px; cursor: pointer;
+  border-radius: 11px; border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03); font-size: 13.5px; font-weight: 600;
   transition: all var(--transicao);
 }
 .radio label:hover { border-color: rgba(169, 207, 68, 0.35); }
@@ -563,10 +570,15 @@ ul { list-style: none; }
 .radio svg { width: 19px; height: 19px; flex: none; }
 
 .resumo {
-  margin-top: 24px; padding: 20px 22px; border-radius: 12px;
+  /* Em coluna unica o resumo ficaria acima do formulario, a empurrar
+     os campos para baixo. So aparece quando ha coluna lateral. */
+  display: none;
+  margin-top: 22px; padding: 15px 18px; border-radius: 12px;
   background: rgba(169, 207, 68, 0.07); border: 1px solid var(--linha);
-  font-size: 14px; line-height: 1.8; color: var(--texto-suave);
+  font-size: 13px; line-height: 1.6; color: var(--texto-suave);
 }
+@media (min-width: 1000px) { .resumo { display: block; } }
+.resumo > b { display: block; margin-bottom: 8px; font-size: 12.5px; }
 .resumo b { color: var(--texto); font-weight: 700; }
 .resumo dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; }
 .resumo dt { color: var(--texto-fraco); font-size: 12.5px; font-weight: 700; }

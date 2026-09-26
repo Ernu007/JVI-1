@@ -494,6 +494,18 @@
         <span class="orc-passo-btn__n">4</span>
         <span class="orc-passo-btn__t">Valores e Pagamento<span class="orc-passo-btn__d">Cobrança e forma</span></span>
       </button>
+
+      <!-- O resumo vive na coluna lateral: atualiza-se a cada passo e
+           poupa cerca de 200px de altura na coluna do formulario. -->
+      <div class="resumo" data-resumo>
+        <b>Resumo do pedido</b>
+        <dl>
+          <dt>Emissor</dt><dd data-res="emissor">—</dd>
+          <dt>Destino</dt><dd data-res="destino">—</dd>
+          <dt>Carga</dt><dd data-res="carga">—</dd>
+          <dt>Valores</dt><dd data-res="valores">—</dd>
+        </dl>
+      </div>
     </div>
 
     <!-- Formulário -->
@@ -608,7 +620,7 @@
       <fieldset class="form-seccao" data-seccao="3">
         <h3>Valores e Forma de Pagamento</h3>
         <p>Valores estimados e forma de liquidação preferida.</p>
-        <div class="campos campos--2">
+        <div class="campos campos--3">
           <div class="campo" data-campo="valor_cobrar">
             <label for="valor_cobrar">Valor a Cobrar (MZN)</label>
             <input id="valor_cobrar" name="valor_cobrar" type="number" min="0" step="0.01" placeholder="0.00">
@@ -623,7 +635,7 @@
           </div>
           <div class="campo campo--largo">
             <label>Forma de pagamento</label>
-            <div class="radio">
+            <div class="radio radio--pagamento">
               <label><input type="radio" name="pagamento" value="Numerário" checked> Numerário</label>
               <label><input type="radio" name="pagamento" value="Cheque"> Cheque</label>
               <label><input type="radio" name="pagamento" value="Transferência Bancária"> Transferência Bancária</label>
@@ -652,7 +664,7 @@
 
         <div class="canais">
           <h4>Como quer enviar o pedido?</h4>
-          <div class="radio">
+          <div class="radio radio--canal">
             <label><input type="radio" name="canal" value="ambos" checked>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
               WhatsApp + Email <span style="font-size:12px;color:var(--texto-fraco)">(recomendado)</span>
@@ -673,19 +685,8 @@
           <label for="consentimento">Li e aceito a <a href="#" data-legal="privacidade">Política de Privacidade</a> da JVI Carga &amp; Serviços, e autorizo o tratamento dos dados indicados para efeitos de orçamento e contacto comercial. <span style="color:var(--laranja)">*</span></label>
         </div>
 
-        <div class="resumo" id="resumo">
-          <b>Resumo do pedido</b>
-          <dl>
-            <dt>Emissor</dt><dd data-res="emissor">—</dd>
-            <dt>Carga</dt><dd data-res="carga">—</dd>
-            <dt>Destino</dt><dd data-res="destino">—</dd>
-            <dt>Valores</dt><dd data-res="valores">—</dd>
-          </dl>
-        </div>
-
         <div class="estado-envio" data-estado role="status" aria-live="polite"></div>
       </fieldset>
-
       <div class="form-nav">
         <button class="btn btn--vidro" type="button" data-ant disabled>Anterior</button>
         <button class="btn btn--primario" type="button" data-seg>Seguinte</button>

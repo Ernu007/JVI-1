@@ -663,7 +663,7 @@ document.querySelectorAll('.orc__form').forEach((form) => {
     btnAnt.disabled = atual === 0;
     btnSeg.hidden = atual === seccoes.length - 1;
     btnEnv.hidden = atual !== seccoes.length - 1;
-    if (atual === seccoes.length - 1) actualizarResumo();
+    actualizarResumo();
   }
 
   /* Cada erro fica ligado ao seu campo por aria-describedby, para o
@@ -685,15 +685,21 @@ document.querySelectorAll('.orc__form').forEach((form) => {
     const iva = Math.round(base * 0.16 * 100) / 100;
     form.elements.iva.value = base ? iva.toFixed(2) : '';
     const total = base + iva;
-    form.querySelector('[data-res="emissor"]').textContent = `${g('emissor_nome')} — ${g('emissor_endereco')}`;
-    form.querySelector('[data-res="carga"]').textContent = `${nVol} vol · ${peso} kg — ${g('descricao')}`;
-    form.querySelector('[data-res="destino"]').textContent = `${g('receptor_nome')} — ${g('receptor_endereco')}`;
-    form.querySelector('[data-res="valores"]').textContent = base
+    /* O resumo vive na coluna lateral, fora do <form>: procuramos em `raiz`. */
+    const alvo = (n) => raiz.querySelector(`[data-res="${n}"]`);
+    const res = {
+      emissor: alvo('emissor'), carga: alvo('carga'),
+      destino: alvo('destino'), valores: alvo('valores'),
+    };
+    if (res.emissor) res.emissor.textContent = `${g('emissor_nome')} — ${g('emissor_endereco')}`;
+    if (res.carga) res.carga.textContent = `${nVol} vol · ${peso} kg — ${g('descricao')}`;
+    if (res.destino) res.destino.textContent = `${g('receptor_nome')} — ${g('receptor_endereco')}`;
+    if (res.valores) res.valores.textContent = base
       ? `${base.toFixed(2)} + IVA ${iva.toFixed(2)} = ${total.toFixed(2)} MZN (${form.querySelector('input[name="pagamento"]:checked')?.value || 'Numerário'})`
       : 'A definir pela JVI';
   }
 
-  form.querySelector('[data-res="emissor"]') && form.elements.valor_cobrar.addEventListener('input', actualizarResumo);
+  form.elements.valor_cobrar?.addEventListener('input', actualizarResumo);
   form.addEventListener('change', (e) => {
     if (e.target.name === 'pagamento') {
       const v = e.target.value;
