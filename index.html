@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Envio de Encomendas e Carga de Maputo para as Províncias | JVI</title>
+<meta name="description" content="Agência de carga em Maputo: envio de encomendas, carga aérea e transporte rodoviário para as dez províncias — Beira, Nampula, Pemba, Tete. Peça orçamento.">
+<meta name="theme-color" content="#0F172A">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="stylesheet" href="css/fontes.css">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/privacidade.css">
+<link rel="stylesheet" href="css/orcamento.css">
+<link rel="stylesheet" href="css/galeria.css">
+
+<!-- O texto do primeiro ecrã usa a fonte no primeiro ciclo: pré-carregar
+     o subset latino evita o salto visual do font-display: swap. Só este
+     subset — o português não precisa de cirílico nem vietnamita. -->
+<link rel="preload" href="assets/fonts/plus-jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- main.js é o único script que o HTML conhece. Os módulos de que ele
+     importa só são descobertos depois de ele descarregar e ser
+     pré-parseado; com modulepreload arrancam as 5 transferências em
+     paralelo, já durante o parse do HTML. -->
+<link rel="modulepreload" href="js/hero-voo.js">
+<link rel="modulepreload" href="js/mapa-dados.js">
+<link rel="modulepreload" href="js/orcamento.js">
+<link rel="modulepreload" href="js/precos.js">
+<link rel="modulepreload" href="js/galeria.js">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_MZ">
+<meta property="og:site_name" content="JVI Carga &amp; Serviços, Lda">
+<meta property="og:title" content="Envio de Encomendas e Carga de Maputo para as Províncias | JVI">
+<meta property="og:description" content="Agência de carga em Maputo: envio de encomendas, carga aérea e transporte rodoviário para as dez províncias — Beira, Nampula, Pemba, Tete. Peça orçamento.">
+<!-- og:image tem de ser um URL ABSOLUTO. A especificação do Open Graph
+     não tem nenhuma regra de resolução relativa: o Facebook, o WhatsApp e
+     o LinkedIn recebem a tag tal e qual e não a juntam ao domínio, por isso
+     uma imagem relativa sai sem imagem na pré-visualização. Apontamos
+     para o mesmo domínio do `canonical` e do JSON-LD — um `og:image`
+     que aponta para o domínio deNetlify mostra a marca certa no sítio
+     errado, e a alteração de domínio depois passa despercebida.
+
+     O `assets/logo-full.png` tem 720x1600 (é um JPEG com extensão .png,
+     o que o Content-Type denuncia mas os rastreadores perdoam).
+     `og:image:absolute` NÃO é parte do Open Graph — nenhum dos
+     rastreadores o lê, por isso não é uma alternativa ao `og:image`. -->
+<meta property="og:image" content="https://jvicargaservicos.co.mz/assets/logo-full.png">
+<meta property="og:image:secure_url" content="https://jvicargaservicos.co.mz/assets/logo-full.png">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="720">
+<meta property="og:image:height" content="1600">
+<meta property="og:image:alt" content="Logótipo da JVI Carga &amp; Serviços, Lda — transportes e logística em Moçambique">
+<meta property="og:url" content="https://jvicargaservicos.co.mz/">
+<meta name="twitter:card" content="summary_large_image">
+<!-- O `summary_large_image` sem `twitter:image` é uma carta sem imagem:
+     o X não adivinha a partir do `og:image` nos casos em que o `og` não
+     é processado. -->
+<meta name="twitter:image" content="https://jvicargaservicos.co.mz/assets/logo-full.png">
+<meta name="twitter:title" content="Envio de Encomendas e Carga de Maputo para as Províncias | JVI">
+<meta name="twitter:description" content="Agência de carga em Maputo: envio de encomendas, carga aérea e transporte rodoviário para as dez províncias — Beira, Nampula, Pemba, Tete. Peça orçamento.">
+<link rel="canonical" href="https://jvicargaservicos.co.mz/">
+</head>
+<body>
+
+<!-- Skip link (WCAG 2.4.1 Bypass Blocks, Nível A). Antes do conteúdo
+     principal há 9 elementos focáveis: a marca, 7 links de navegação e o
+     botão de orçamento. Sem isto, quem navega só com teclado tem de
+     carregar Tab nove vezes em cada visita para chegar ao conteúdo.
+     Fica escondido até receber o foco — `.pular` em styles.css. -->
+<a class="pular" href="#topo">Saltar para o conteúdo</a>
+
+<div class="barra-topo" id="barraTopo"></div>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header" id="header">
+  <div class="container header__int">
+    <a href="#topo" class="brand" aria-label="JVI Carga e Serviços — início">
+      <img src="assets/logo.webp" alt="JVI Carga e Serviços, Lda" class="brand__logo" width="151" height="184" decoding="async">
+      <span class="brand__txt">
+        <b>JVI Carga &amp; Serviços</b>
+        <span>Transportes e Logística</span>
+      </span>
+    </a>
+
+    <!-- Fase 8B (B1). Os nomes e a ordem são os que o cliente ditou, e
+         "Credenciais" saiu porque não existe página para linkar — a
+         secção continua no sítio (ver mais abaixo), só deixou de ter um
+         item de menu que mandasse para ela.
+
+         TODAS as tabs levam ponto final. É o que o cliente pediu, e é o
+         que as distingue dos links dentro das páginas: ninguém fica a
+         ler "Contactos" no menu e pensa que é um botão de acção.
+
+         Esta lista e a do menu móvel são a MESMA navegação em dois
+         sítios. Estavam diferentes — o móvel tinha "Perguntas
+         frequentes" e o topo não, e ambos tinham "Credenciais", que não
+         apontava para lado nenhum. `tests/interface.test.js` compara as
+         duas. -->
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#servicos">Nossos serviços.</a></li>
+        <li><a href="#fluxo">Como funciona.</a></li>
+        <li><a href="#galeria">Nosso trabalho.</a></li>
+        <li><a href="#jvi">A JVI.</a></li>
+        <li><a href="#empresa">Nossa empresa.</a></li>
+        <li><a href="#contactos">Contactos.</a></li>
+      </ul>
+    </nav>
+
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="menu-fundo" id="menuFundo"></div>
+<!-- Fase 8B (B1): a MESMA navegação da barra de topo, item por item e
+     pela mesma ordem. Estavam diferentes — o móvel tinha "Perguntas
+     frequentes" e o topo não, e ambos tinham "Credenciais", que não
+     aponta para lado nenhum. Duas listas da mesma navegação divergem
+     sempre uma de cada vez; `tests/interface.test.js` compara as duas
+     para que não voltem a divergir.
+
+     Os pontos finais vêm do cliente (ver a nota na barra de topo). -->
+<nav class="menu" id="menu" aria-label="Menu móvel">
+  <a href="#servicos">Nossos serviços.</a>
+  <a href="#fluxo">Como funciona.</a>
+  <a href="#galeria">Nosso trabalho.</a>
+  <a href="#jvi">A JVI.</a>
+  <a href="#empresa">Nossa empresa.</a>
+  <a href="#contactos">Contactos.</a>
+  <button class="btn btn--primario btn--bloco" data-abrir-orc>Pedir orçamento</button>
+</nav>
+
+<!-- `tabindex="-1"` nos alvos da navegação interna: pela especificação
+     HTML, um link de fragmento só move o FOCO se o destino for focável.
+     Sem isto, `#servicos`, `#galeria`, `#contactos` e os restantes
+     limitavam-se a mover a posição de partida da navegação sequencial —
+     o scroll mudava e o foco ficava no link. Com teclado, o utilizador
+     clicava "Contactos", a página saltava, e o foco continuava no menu:
+     tudo o que viesse a seguir era lido a partir do sítio errado.
+
+     O `#topo` é o `main` e é também o destino do skip link e da marca. -->
+<main id="topo" tabindex="-1">
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero__fundo" aria-hidden="true"><canvas id="canvasHero"></canvas></div>
+  <div class="hero__grelha" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="container hero__int">
+    <div class="hero__conteudo">
+      <span class="etiqueta">Licenciada · De Rovuma ao Maputo</span>
+
+      <h1>
+        <span class="h1linha">
+          <span class="pal">A</span> <span class="pal">sua</span> <span class="pal">carga,</span>
+        </span>
+        <span class="h1linha">
+          <span class="pal verde">em</span> <span class="pal verde">mãos</span> <span class="pal verde">seguras.</span>
+        </span>
+      </h1>
+
+      <p class="hero__lead">Transporte, tratamento e distribuição de encomendas e objectos postais em todo o território moçambicano e internacional — por via aérea e rodoviária, com mais de 10 anos de rigor operacional.</p>
+
+      <div class="hero__acoes">
+        <button class="btn btn--primario" data-abrir-orc>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h3"/></svg>
+          Pedir orçamento
+        </button>
+        <!-- Fase 9 (9.6): verde, como o WhatsApp do rodapé — a mesma classe
+             `btn--wa`. É o verde da marca WhatsApp, que é outro verde: a
+             acção primária do ecrã continua a ser só o orçamento (D19, D41). -->
+        <a class="btn btn--wa" href="https://wa.me/258878066265?text=Olá%20JVI%20Carga%20%26%20Serviços%2C%20gostaria%20de%20informações%20sobre%20transporte%20de%20carga." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.48 9 9 0 0 1-1.67-2.07c-.17-.3 0-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.38s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.13-.28-.2-.58-.35z"/><path d="M12.051 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.945c0 2.096.548 4.142 1.588 5.945L0 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.585 0 11.946-5.36 11.949-11.945a11.9 11.9 0 0 0-3.421-8.4"/></svg>
+          Falar no WhatsApp
+        </a>
+        <!-- Fase 7A. Link SECUNDÁRIO de propósito: a acção primária do
+             ecrã continua a ser "Pedir orçamento" (Fase 6). Abre o Maps
+             em direcções para o terminal, sem API key, sem tracking e sem
+             JavaScript — por isso é um <a> literal e não um botão. O
+             destino é o Plus Code que o cliente confirmou (`PLUS_CODE_JVI`,
+             com o `+` escrito `%2B`) e tem de ser byte-a-byte igual ao que `linkDirecoes()`
+             produz em js/rota.js; é o `tests/rota.test.js` que o garante.
+
+             E `btn--bloco`, que é o que o põe na linha de baixo a ocupar
+             a largura toda: sem isto, os três botões somavam 669.58px
+             (204.50 + 221.20 + 217.88 + dois gaps de 13) contra 660px de
+             contentor, e este quebrava sozinho, com a largura dele, e
+             lia-se como botão órfão. A primária e o WhatsApp ficam na
+             primeira linha, metade cada um (Fase 9, 9.4). É o
+             `tests/hero-acoes.test.js` que o garante. -->
+        <a class="btn btn--vidro btn--bloco" href="https://www.google.com/maps/dir/?api=1&amp;destination=3H9C%2BVJ8%2C%20Maputo&amp;travelmode=driving" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Como chegar à JVI
+        </a>
+      </div>
+      <div class="percurso">
+        <!-- O percurso com setas, junto ao botão (D36). SÓ nomeia o que está na
+             morada confirmada e não diz para que lado se vira: o lado depende de
+             onde o cliente parte, e isso é o Maps que sabe. Os passos são os de
+             `PASSOS_PERCURSO` em js/rota.js; é o `tests/percurso.test.js` que
+             garante que as duas cópias não divergem e que ninguém inventa rota. -->
+        <ol class="percurso__passos" aria-label="Percurso até à JVI">
+          <li class="percurso__passo"><span class="percurso__seta" aria-hidden="true">↑</span><span class="percurso__txt">Siga para o <b>Aeroporto de Maputo</b></span></li>
+          <li class="percurso__passo"><span class="percurso__seta" aria-hidden="true">↑</span><span class="percurso__txt">Siga pela <b>Av. 19 de Outubro</b></span></li>
+          <li class="percurso__passo percurso__passo--chegada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="percurso__txt">A JVI fica no <b>Terminal de Cargas Nº 113</b></span></li>
+        </ol>
+        <p class="percurso__nota">As viragens dependem de onde parte: o botão acima abre o caminho completo no Google Maps.</p>
+      </div>
+
+      <div class="hero__provas">
+        <span class="prova">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>10+ anos</b> de experiência</span>
+        </span>
+        <span class="prova">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Licença de <b>correio</b> oficial</span>
+        </span>
+        <span class="prova">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Operação nos <b>aeroportos nacionais</b></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 9 (9.3): aqui estava o cartão com a rota por extenso (as dez
+       cidades). Saiu a pedido do cliente — o mapa já as escreve. -->
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Deslize</span>
+    <span class="scroll-hint__linha"></span>
+  </div>
+</section>
+
+<!-- ===================== DIFERENCIAIS ===================== -->
+<section class="seccao seccao--alt" id="diferenciais">
+  <div class="container">
+    <span class="etiqueta etiqueta--larga">Porquê a JVI.</span>
+    <h2 class="titulo-seccao">Logística que <span class="verde">cumpre prazos</span>, não apenas promessas.</h2>
+    <p class="subtitulo-seccao">Quatro compromissos que sustentam cada encomenda que passa pelas nossas mãos, de Rovuma ao Maputo.</p>
+
+    <div class="grelha-4">
+      <article class="card revelar">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></div>
+        <h3>Mais Agilidade</h3>
+        <p>Redução substancial do tempo de encaminhamento e distribuição, da recolha à entrega final.</p>
+      </article>
+      <article class="card revelar revelar-d">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Mais Controlo</h3>
+        <p>Supervisão contínua em todas as etapas da cadeia logística, com rastreio rigoroso da mercadoria.</p>
+      </article>
+      <article class="card revelar revelar-d2">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></div>
+        <h3>Mais Alcance</h3>
+        <p>Capacidade de ligação entre os principais pontos do país, cobrindo todo o território nacional.</p>
+      </article>
+      <article class="card revelar revelar-d3">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+        <h3>Mais Eficiência</h3>
+        <p>Optimização directa dos custos operacionais, com soluções ajustadas a cada parceiro.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVIÇOS ===================== -->
+<section class="seccao" id="servicos" tabindex="-1">
+  <div class="container">
+    <span class="etiqueta">O que fazemos</span>
+    <h2 class="titulo-seccao">Carga aérea e rodoviária, <span class="verde">de Maputo às províncias</span>.</h2>
+    <p class="subtitulo-seccao">Do tratamento de objectos postais a planos logísticos corporativos, construídos à medida da sua operação.</p>
+
+    <!-- Fase 8B (B3–B6). Quatro cartões, dois a dois, e títulos de três
+         palavras no máximo: o cliente achou os cartões "muito carregados".
+         O primeiro passa a "Soluções integradas" e leva as DUAS fotografias
+         lado a lado — as caixas no chão e as encomendas para a Zambézia —,
+         que é a disposição que ele pediu. O "Descarregar perfil da JVI"
+         saiu daqui: fica só no rodapé e nos Contactos, junto da carta.
+         Sem `<div>` dentro dos cartões: o corpo é o próprio `<article>`
+         e a figura é um `<figure>`. -->
+
+    <div class="grelha-3">
+      <article class="servico revelar">
+        <figure class="servico__figura">
+          <span class="servico__n" aria-hidden="true">01</span>
+          <img src="assets/img/aviao.jpg" alt="Aeronave em voo de carga" loading="lazy" decoding="async" width="1116" height="1491">
+        </figure>
+        <h3>Transporte aéreo</h3>
+        <p>Voos regulares e espaço de carga garantido, para o que tem pressa.</p>
+      </article>
+
+      <article class="servico revelar revelar-d">
+        <figure class="servico__figura">
+          <span class="servico__n" aria-hidden="true">02</span>
+          <!-- Fotografia: Unsplash (licença Unsplash, uso livre), imagem EmEQ6kK_5P0 — semirreboque ao pôr do sol. A marca JVI foi aplicada no baú por tools/gerar-camiao.py. -->
+          <img src="assets/img/camiao-jvi.webp" alt="Camião de carga em andamento numa estrada ao pôr do sol, com a marca JVI no baú" loading="lazy" decoding="async" width="1000" height="625">
+        </figure>
+        <h3>Transporte rodoviário</h3>
+        <p>Carga geral, paletes e volumes grandes, por estrada.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FLUXO ===================== -->
+<section class="seccao seccao--alt" id="fluxo" tabindex="-1">
+  <div class="container">
+    <span class="etiqueta etiqueta--larga">Fluxo de entrada.</span>
+    <h2 class="titulo-seccao titulo-seccao--centro">Da recolha à entrega, <span class="verde">cinco etapas</span> controladas.</h2>
+    <p class="subtitulo-seccao subtitulo-seccao--centro">Cada encomenda segue um percurso vertical e rastreável, com supervisão em todas as fases.</p>
+
+    <div class="fluxo reveal" id="fluxoLista">
+      <div class="fluxo__linha" id="fluxoLinha" aria-hidden="true"></div>
+      <div class="fluxo__lista">
+        <article class="etapa revelar">
+          <span class="etapa__ponto" aria-hidden="true">1</span>
+          <span class="etapa__et">Etapa 01</span>
+          <h3>Recolha &amp; Aceitação</h3>
+          <p>Recolhemos a sua carga no endereço indicado e procedemos à aceitação formal, com registo de volumes e peso.</p>
+        </article>
+        <article class="etapa revelar">
+          <span class="etapa__ponto" aria-hidden="true">2</span>
+          <span class="etapa__et">Etapa 02</span>
+          <h3>Tratamento &amp; Triagem</h3>
+          <p>Conferência documental, etiquetagem e triagem rigorosa, garantindo que cada volume segue o destino correcto.</p>
+        </article>
+        <article class="etapa revelar">
+          <span class="etapa__ponto" aria-hidden="true">3</span>
+          <span class="etapa__et">Etapa 03</span>
+          <h3>Transporte Rápido</h3>
+          <p>Encaminhamento por via aérea ou rodoviária, com minimização do tempo entre recolha e entrega.</p>
+        </article>
+        <article class="etapa revelar">
+          <span class="etapa__ponto" aria-hidden="true">4</span>
+          <span class="etapa__et">Etapa 04</span>
+          <h3>Controlo &amp; Segurança</h3>
+          <p>Tratamento rigoroso da carga durante toda a rota, com supervisão contínua e garantia de integridade.</p>
+        </article>
+        <article class="etapa revelar">
+          <span class="etapa__ponto" aria-hidden="true">5</span>
+          <span class="etapa__et">Etapa 05</span>
+          <h3>Entrega Final</h3>
+          <p>Entrega pontual ao destinatário, com confirmação de recepção e conclusão do processo.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CREDENCIAIS ===================== -->
+<section class="seccao seccao--alt" id="credenciais" tabindex="-1">
+  <div class="container">
+    <span class="etiqueta">Credenciais</span>
+    <h2 class="titulo-seccao">Uma empresa <span class="verde">formalmente constituída</span> e licenciada.</h2>
+    <p class="subtitulo-seccao">Mais de uma década de experiência no mercado moçambicano de transporte de carga e correio.</p>
+
+    <div class="grelha-credenciais">
+      <article class="cred revelar">
+        <div class="cred__rot">Experiência</div>
+        <div class="cred__val verde">10+ anos</div>
+        <p class="cred__desc">No mercado de transporte de carga em Moçambique.</p>
+      </article>
+      <article class="cred revelar revelar-d">
+        <div class="cred__rot">Licença Operacional</div>
+        <div class="cred__val">8732/11/04/PS/2014</div>
+        <p class="cred__desc">Para prestação de serviços postais.</p>
+      </article>
+      <article class="cred revelar revelar-d2">
+        <div class="cred__rot">NUEL</div>
+        <div class="cred__val">100449137</div>
+        <p class="cred__desc">Entidade legalmente registada.</p>
+      </article>
+      <article class="cred revelar revelar-d3">
+        <div class="cred__rot">NUIT</div>
+        <div class="cred__val">400501424</div>
+        <p class="cred__desc">Número Único de Identificação Tributária.</p>
+      </article>
+    </div>
+
+    <blockquote class="citacao revelar">
+      “Conectamos Moçambique. Ligamos Cargas a Oportunidades.”
+      <footer>JVI Carga &amp; Serviços, Lda</footer>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ===================== GALERIA ===================== -->
+<section class="seccao" id="galeria" tabindex="-1">
+  <div class="container">
+    <span class="etiqueta">Os nossos trabalhos</span>
+    <h2 class="titulo-seccao">Carga entregue, <span class="verde">em todo o país</span>.</h2>
+    <p class="subtitulo-seccao">Fotografias da nossa operação: camiões carregados, etiquetas de destino, mercadorias embaladas e o nosso material de trabalho.</p>
+
+    <!-- Fase 8B (B7): carrossel, uma fotografia de cada vez, a passar
+         sozinho em ciclo contínuo. Pausa com o botão, com o rato por cima
+         ou o foco lá dentro, e não arranca com prefers-reduced-motion
+         (WCAG 2.2.2). Cada item continua a ser o <button> da luzbox. -->
+    <div class="gal" data-gal>
+      <div class="gal__palco">
+      <div class="gal__grelha" data-gal-pista aria-label="Fotografias da operação" role="group">
+        <button class="gal__item" type="button"
+                data-gal-src="assets/img/galeria/img_7296cfa7277f.webp"
+                data-gal-alt="Caixote de madeira com a mercadoria embalada em plástico bolha e selado com fita impressa da JVI Carga &amp; Serviços" aria-label="Ampliar: caixote selado com fita da JVI">
+          <img src="assets/img/galeria/img_7296cfa7277f.webp" width="1280" height="576" loading="lazy" decoding="async"
+               alt="Caixote de madeira com a mercadoria embalada e selado com fita da JVI Carga &amp; Serviços">
+          <span class="gal__legenda">Selado com fita da JVI</span>
+        </button>
+
+        <button class="gal__item" type="button"
+                data-gal-src="assets/img/galeria/img_ac351fd019f4.webp"
+                data-gal-alt="Caixas de televisores ULTRAK reforçadas com ripas verticais de madeira, empilhadas dentro de uma caixa de camião, com paletes e espuma ao lado" aria-label="Ampliar: TVs ULTRAK reforçadas com madeira">
+          <img src="assets/img/galeria/img_ac351fd019f4.webp" width="1280" height="576" loading="lazy" decoding="async"
+               alt="Caixas de televisores ULTRAK reforçadas com ripas de madeira, empilhadas para expedição">
+          <span class="gal__legenda">TVs ULTRAK, reforçadas com madeira</span>
+        </button>
+
+        <button class="gal__item" type="button"
+                data-gal-src="assets/img/galeria/img_492cc8a760cc.webp"
+                data-gal-alt="Motociclo envolvido em película de plástico e protegido com cartão, encostado a uma parede com a placa EXPORTAÇÃO DOMÉSTICA" aria-label="Ampliar: motociclo embalado para exportação">
+          <img src="assets/img/galeria/img_492cc8a760cc.webp" width="644" height="1178" loading="lazy" decoding="async"
+               alt="Motociclo envolvido em película de plástico e protegido com cartão, encostado a uma parede">
+          <span class="gal__legenda">Motociclo embalado para exportação</span>
+        </button>
+
+        <button class="gal__item" type="button"
+                data-gal-src="assets/img/galeria/img_d544eaf40b51.webp"
+                data-gal-alt="Dois caixotes de madeira montados sobre a plataforma de um reboque, num terreiro de betão" aria-label="Ampliar: caixotes num reboque">
+          <img src="assets/img/galeria/img_d544eaf40b51.webp" width="1280" height="576" loading="lazy" decoding="async"
+               alt="Dois caixotes de madeira montados sobre a plataforma de um reboque">
+          <span class="gal__legenda">Caixotes de madeira num reboque</span>
+        </button>
+
+        <button class="gal__item" type="button"
+                data-gal-src="assets/img/galeria/img_7213c79fb0af.webp"
+                data-gal-alt="Fotocopiadora multifunções Konica Minolta bizhub envolvida em película plástica sobre uma palete, com um trabalhador de colete reflector ao fundo" aria-label="Ampliar: fotocopiadora embalada para expedição">
+          <img src="assets/img/galeria/img_7213c79fb0af.webp" width="576" height="1280" loading="lazy" decoding="async"
+               alt="Fotocopiadora multifunções Konica Minolta bizhub envolvida em película plástica sobre uma palete">
+          <span class="gal__legenda">Fotocopiadora protegida com película</span>
+        </button>
+
+        <button class="gal__item" type="button"
+                data-gal-src="assets/img/galeria/img_2187343c6a9b.webp"
+                data-gal-alt="Caixas de televisores ULED 4K, televisão oficial do Mundial FIFA Qatar 2022, reforçadas com ripas de madeira dentro da caixa de um camião" aria-label="Ampliar: TVs do Mundial, reforçadas com madeira">
+          <img src="assets/img/galeria/img_2187343c6a9b.webp" width="1280" height="576" loading="lazy" decoding="async"
+               alt="Caixas de televisores oficiais do Mundial FIFA Qatar 2022 reforçadas com ripas de madeira">
+          <span class="gal__legenda">TVs do Mundial, reforçadas com madeira</span>
+        </button>
+
+        <button class="gal__item" type="button"
+                data-gal-src="assets/img/galeria/img_0d31a9562dfd.webp"
+                data-gal-alt="Recepção do escritório da JVI Carga &amp; Serviços, com o logótipo na parede, certificações emolduradas e um mapa-múndi" aria-label="Ampliar: escritório da JVI">
+          <img src="assets/img/galeria/img_0d31a9562dfd.webp" width="1280" height="960" loading="lazy" decoding="async"
+               alt="Recepção do escritório da JVI Carga &amp; Serviços, com o logótipo na parede e um mapa-múndi">
+          <span class="gal__legenda">O nosso escritório na JVI</span>
+        </button>
+      </div>
+      <div class="gal__controlos">
+        <button class="gal__ctl" type="button" data-gal-ant aria-label="Fotografia anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <span class="gal__contador" data-gal-contador aria-live="off">1 / 7</span>
+        <button class="gal__ctl" type="button" data-gal-pausa aria-pressed="false" aria-label="Pausar o carrossel">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-ico-pausa><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-ico-play hidden><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="gal__ctl" type="button" data-gal-prox aria-label="Fotografia seguinte">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+      </div>
+
+      <div class="gal__mais">
+        <p>Cada fotografia é uma carga que passou pelo nosso terminal. Se a sua também precisa de sair, fale connosco.</p>
+        <button class="btn btn--primario" data-abrir-orc>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h3"/></svg>
+          Pedir orçamento
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LUZBOX ===================== -->
+<div class="luz" id="luz" data-aberto="false" role="dialog" aria-modal="true" aria-label="Fotografia ampliada">
+  <div class="luz__fundo" data-luz-fundo></div>
+  <figure class="luz__figura">
+    <button class="luz__fechar" type="button" data-luz-fechar aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="luz__nav luz__nav--ant" type="button" data-luz-ant aria-label="Fotografia anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <button class="luz__nav luz__nav--prox" type="button" data-luz-prox aria-label="Fotografia seguinte">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+    <img data-luz-img src="" alt="">
+    <figcaption class="luz__legenda" data-luz-legenda aria-live="polite" aria-atomic="true"></figcaption>
+  </figure>
+</div>
+
+<!-- ===================== APRESENTAÇÃO / VISÃO MISSÃO OBJ ===================== -->
+<section class="seccao" id="jvi" tabindex="-1">
+  <div class="container">
+    <span class="etiqueta">Apresentar a JVI</span>
+    <h2 class="titulo-seccao">Uma estrutura sólida, uma <span class="verde">equipa qualificada</span>.</h2>
+    <p class="subtitulo-seccao">A JVI Carga &amp; Serviços, Lda. é uma empresa moçambicana especializada no transporte, tratamento e distribuição de cargas, encomendas e objectos postais através de soluções integradas aéreas e rodoviárias. Com uma estrutura sólida e equipa qualificada, garantimos agilidade, máxima segurança e rigor operacional na movimentação de mercadorias em todo o território nacional e internacional.</p>
+
+    <div class="pilares">
+      <article class="pilar revelar">
+        <div class="pilar__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg><h3>Visão</h3></div>
+        <p>Ser uma referência nacional no transporte de carga e correio, destacando-nos pela máxima eficiência.</p>
+      </article>
+      <article class="pilar revelar revelar-d">
+        <div class="pilar__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg><h3>Missão</h3></div>
+        <p>Garantir a total satisfação dos nossos clientes, prestando serviços com rigor, elevado profissionalismo, ética e responsabilidade.</p>
+      </article>
+      <article class="pilar revelar revelar-d2">
+        <div class="pilar__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg><h3>Objectivo</h3></div>
+        <p>Oferecer serviços de elevada qualidade a preços competitivos, totalmente ajustados às necessidades específicas de cada parceiro.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NOSSA EMPRESA ===================== -->
+<!-- Fase 8B (B9). A carta de apresentação como prova de que a empresa
+     existe: a capa é a imagem, os números fiscais o texto. A imagem é a
+     página 1 do PDF, rasterizada (assets/img/carta-capa.webp). Sem botão
+     de download aqui: o cliente quer o PDF só no rodapé (B4). -->
+<section class="seccao seccao--alt" id="empresa" tabindex="-1">
+  <div class="container empresa">
+    <figure class="empresa__carta revelar">
+      <img src="assets/img/carta-capa.webp" alt="Capa da carta de apresentação da JVI Carga &amp; Serviços, Lda, com o logótipo, a frase «Conectamos Moçambique. Ligamos cargas a oportunidades.» e os contactos do terminal" loading="lazy" decoding="async" width="794" height="1123">
+    </figure>
+    <div class="empresa__texto">
+      <span class="etiqueta">Registada · com morada e licença</span>
+      <h2 class="titulo-seccao"><span class="verde">Nossa empresa</span>.</h2>
+      <p class="subtitulo-seccao">A JVI Carga &amp; Serviços, Lda. opera a partir do Terminal de Cargas do Aeroporto de Maputo. A carta de apresentação reúne o perfil, a cobertura, o fluxo operacional e as credenciais da empresa.</p>
+      <dl class="empresa__dados">
+        <div><dt>NUIT</dt><dd>400501424</dd></div>
+        <div><dt>NUEL</dt><dd>100449137</dd></div>
+        <div><dt>Licença</dt><dd>8732/11/04/PS/2014</dd></div>
+        <div><dt>Terminal</dt><dd>Av. 19 de Outubro, Nº 113</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ORÇAMENTO (formulário na secção) ===================== -->
+<section class="seccao seccao--alt" id="orcamento" tabindex="-1">
+  <div class="container">
+    <span class="etiqueta">Pedir orçamento</span>
+    <h2 class="titulo-seccao">Conte-nos sobre a sua <span class="verde">carga</span>.</h2>
+    <p class="subtitulo-seccao">Leva menos de dois minutos. Escreve o peso, vê o preço, e envia — a JVI responde com uma proposta detalhada.</p>
+    <div class="orc-cta">
+      <p class="orc-cta__txt">O preço sai do seu peso: <b>3 000 MT</b> até 10 kg, <b>255 MT por kg</b> acima disso, IVA incluído. O preço nunca desce quando o peso sobe.</p>
+      <button class="btn btn--primario btn--grande" data-abrir-orc>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h3"/></svg>
+        Pedir orçamento
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="seccao seccao--alt" id="faq" tabindex="-1">
+  <div class="container">
+    <span class="etiqueta">Perguntas frequentes</span>
+    <h2 class="titulo-seccao">Dúvidas que <span class="verde">nos fazem mais</span>.</h2>
+    <p class="subtitulo-seccao">Se a sua pergunta não estiver aqui, escreva-nos no WhatsApp — respondemos no mesmo dia útil.</p>
+
+    <div class="faq">
+      <details class="faq__i">
+        <summary class="faq__p">Quanto custa enviar uma carga?</summary>
+        <div class="faq__r"><p>Até <b>10 kg</b>, o transporte custa <b>3 000 MT</b>. Acima disso, <b>255 MT por cada quilo</b>. O preço final inclui IVA de 16% e nunca desce quando o peso sobe.</p></div>
+      </details>
+      <details class="faq__i">
+        <summary class="faq__p">Quanto tempo demora a chegar?</summary>
+        <div class="faq__r"><p>Entre 24 e 72 horas úteis dentro do país, por via aérea. Por estrada, consoante a rota. Confirmamos o prazo exacto ao fechar o orçamento.</p></div>
+      </details>
+      <details class="faq__i">
+        <summary class="faq__p">Como posso pagar?</summary>
+        <div class="faq__r"><p>Por <b>e-Mola</b>, <b>cartão de crédito</b> ou <b>numerário</b>. Também pode <b>pagar no levantamento</b>, na província de destino, quando for buscar a encomenda.</p></div>
+      </details>
+      <details class="faq__i">
+        <summary class="faq__p">Transportam para fora de Moçambique?</summary>
+        <div class="faq__r"><p>Sim. Trabalhamos com parceiros aéreos e rodoviários para Angola, África do Sul e Zimbabwe. Fale connosco para o seu destino específico.</p></div>
+      </details>
+      <details class="faq__i">
+        <summary class="faq__p">Como acompanho a minha encomenda?</summary>
+        <div class="faq__r"><p>Assim que a carga é aceite, recebe o número de registo. O acompanhamento é feito por WhatsApp, com quem trata da sua remessa.</p></div>
+      </details>
+      <details class="faq__i">
+        <summary class="faq__p">Que documentos preciso de entregar?</summary>
+        <div class="faq__r"><p>Para mercadoria nacional, a factura ou a declaração de valor. Para carga internacional, a documentação comercial e, quando aplicável, a licença de importação. Confirmamos caso a caso.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACTOS ===================== -->
+<section class="seccao" id="contactos" tabindex="-1">
+  <div class="container">
+    <span class="etiqueta">Parcerias &amp; contactos</span>
+    <h2 class="titulo-seccao">Vamos conectar <span class="verde">o seu negócio?</span></h2>
+    <p class="subtitulo-seccao">Acreditamos que uma boa logística vai além de transportar — é garantir que a sua oportunidade chega com pontualidade e segurança.</p>
+
+    <div class="grelha-cont">
+      <div>
+        <div class="cont-lista">
+          <a class="cont-item" href="https://wa.me/258878066265?text=Olá%20JVI%20Carga%20%26%20Serviços%2C%20gostaria%20de%20um%20orçamento." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.48 9 9 0 0 1-1.67-2.07c-.17-.3 0-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.38s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.13-.28-.2-.58-.35z"/><path d="M12.051 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.945c0 2.096.548 4.142 1.588 5.945L0 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.585 0 11.946-5.36 11.949-11.945a11.9 11.9 0 0 0-3.421-8.4"/></svg>
+            <span><b>WhatsApp — só mensagens</b>+258 87 806 6265</span>
+          </a>
+          <!-- Fase 9 (9.1, D38): dois números, dois papéis. Este é o das
+               CHAMADAS; o de cima é só WhatsApp. Cada um diz no rótulo o
+               que é, para ninguém ligar para o número do WhatsApp e ficar à
+               espera. `tests/numero.test.js` confere o número e o papel. -->
+          <a class="cont-item" href="tel:+258844700012">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.79a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.29-1.29a2 2 0 0 1 2.11-.45c.89.34 1.83.57 2.79.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span><b>Telefone — chamadas</b>+258 84 470 0012</span>
+          </a>
+          <a class="cont-item" href="mailto:jvicargaservicos@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <span><b>Email</b>jvicargaservicos@gmail.com</span>
+          </a>
+          <div class="cont-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span><b>Sede operacional</b>Av. 19 de Outubro, Terminal de Cargas Nº 113, Aeroporto de Maputo</span>
+          </div>
+        </div>
+
+        <div class="carta-download">
+          <div>
+            <h3 class="carta-download__t">Carta de Apresentação</h3>
+            <p>Conheça a JVI em detalhe — perfil, cobertura, fluxo operacional e credenciais.</p>
+          </div>
+          <a class="btn btn--laranja" href="carta/jvi-carta-apresentacao.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Descarregar PDF
+          </a>
+        </div>
+      </div>
+
+      <figure class="revelar cont-figura">
+        <a class="cont-figura__link" href="carta/jvi-carta-apresentacao.pdf" target="_blank" rel="noopener">
+          <img src="assets/img/carta-capa.webp" alt="Panfleto da JVI Carga &amp; Serviços — capa da carta de apresentação. Abre o PDF." loading="lazy" decoding="async" width="794" height="1123">
+        </a>
+        <figcaption>Conheça a JVI: a carta de apresentação completa.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== RODAPÉ ===================== -->
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape__topo">
+      <img src="assets/logo.webp" alt="JVI Carga e Serviços, Lda" class="rodape__logo" width="151" height="184" loading="lazy" decoding="async">
+    </div>
+    <!-- Fase 8B (B10). As duas acções do rodapé: WhatsApp com o ícone do
+         WhatsApp, e "Como chegar à JVI" com o pin do Google Maps a ocupar a
+         largura toda do botão. O destino é o mesmo `href` do hero, que o
+         `tests/rota.test.js` confere contra `linkDirecoes()`.
+         V1 + ajustes 3: o percurso com setas e os dados fiscais saíram
+         do rodapé (ficam só no hero/empresa) - pedido do cliente. -->
+    <div class="rodape__accoes">
+      <a class="btn btn--wa" href="https://wa.me/258878066265?text=Olá%20JVI%20Carga%20%26%20Serviços%2C%20gostaria%20de%20um%20orçamento." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.48 9 9 0 0 1-1.67-2.07c-.17-.3 0-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.38s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.13-.28-.2-.58-.35z"/><path d="M12.051 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.945c0 2.096.548 4.142 1.588 5.945L0 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.585 0 11.946-5.36 11.949-11.945a11.9 11.9 0 0 0-3.421-8.4"/></svg>
+        Falar no WhatsApp
+      </a>
+      <a class="btn btn--vidro btn-maps" href="https://www.google.com/maps/dir/?api=1&amp;destination=3H9C%2BVJ8%2C%20Maputo&amp;travelmode=driving" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Como chegar à JVI
+      </a>
+    </div>
+    <!-- Fase 8C/C7. SEO legítimo: os serviços e os destinos em texto real,
+         visível, com links para as secções da própria página. Nada de lista
+         de palavras-chave nem de texto escondido — o Google penaliza as
+         duas coisas. `tests/fase8c.test.js` verifica. NÃO REMOVER: o
+         cliente confirmou que isto fica (só o NUIT/Licença e o percurso
+         com setas saíram do rodapé, não o SEO). -->
+    <nav class="rodape__seo" aria-label="Serviços e destinos">
+      <p><b>Serviços:</b> <a href="#servicos">envio de encomendas, carga aérea e transporte rodoviário</a> · <a href="#fluxo">como funciona o envio</a> · <a href="#orcamento">pedir orçamento de transporte</a> · <a href="#faq">perguntas frequentes</a></p>
+      <p><b>Destinos:</b> de Maputo para Xai-Xai, Inhambane, Beira, Chimoio, Tete, Quelimane, Lichinga, Nampula e Pemba.</p>
+    </nav>
+    <div class="rodape__base">
+      <span>© <span id="ano">2026</span> JVI Carga &amp; Serviços, Lda · Moçambique</span>
+      <nav class="rodape__links" aria-label="Enlaces legais">
+        <a href="#" data-legal="privacidade">Política de Privacidade</a>
+        <a href="carta/jvi-carta-apresentacao.pdf" download>Carta de Apresentação</a>
+        <a href="mailto:jvicargaservicos@gmail.com">Contacto</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== BOTÕES FIXOS ===================== -->
+<nav class="fixos" aria-label="Contactos rápidos">
+  <span class="fixo fixo--wa">
+    <span class="fixo__txt">WhatsApp</span>
+    <a class="fixo__btn" href="https://wa.me/258878066265?text=Olá%20JVI%20Carga%20%26%20Serviços%2C%20gostaria%20de%20um%20orçamento." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.48 9 9 0 0 1-1.67-2.07c-.17-.3 0-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.38s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.13-.28-.2-.58-.35z"/><path d="M12.051 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.945c0 2.096.548 4.142 1.588 5.945L0 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.585 0 11.946-5.36 11.949-11.945a11.9 11.9 0 0 0-3.421-8.4"/></svg>
+    </a>
+  </span>
+  <span class="fixo fixo--tel">
+    <span class="fixo__txt">Ligar</span>
+    <a class="fixo__btn" href="tel:+258844700012" aria-label="Ligar para +258 84 470 0012">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.79a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.29-1.29a2 2 0 0 1 2.11-.45c.89.34 1.83.57 2.79.7A2 2 0 0 1 22 16.92z"/></svg>
+    </a>
+  </span>
+  <span class="fixo fixo--mail">
+    <span class="fixo__txt">Gmail</span>
+    <a class="fixo__btn" href="mailto:jvicargaservicos@gmail.com?subject=Pedido%20de%20orçamento%20de%20transporte" aria-label="Enviar email para jvicargaservicos@gmail.com">
+      <svg class="ico-gmail" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 6.5A1.5 1.5 0 0 1 4.4 5.3L12 11l7.6-5.7A1.5 1.5 0 0 1 22 6.5v11a1.5 1.5 0 0 1-1.5 1.5H17v-8.25l-5 3.75-5-3.75V19H3.5A1.5 1.5 0 0 1 2 17.5z"/></svg>
+    </a>
+  </span>
+</nav>
+
+<!-- ===================== MODAL ORÇAMENTO ===================== -->
+<div class="modal" id="modal" data-aberto="false" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+  <div class="modal__fundo" data-fechar></div>
+  <div class="modal__caixa modal__caixa--orc">
+    <button class="modal__fechar" data-fechar aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="etiqueta">Orçamento</span>
+    <h2 id="modalTitulo" class="modal__titulo">Peça o seu <span class="verde">orçamento</span></h2>
+    <p class="modal__lead">Três passos rápidos. O preço aparece logo à medida que escreve o peso.</p>
+    <div id="orcRaiz">
+      <!-- O formulário é inserido aqui por JS. O ecrã de sucesso tem de
+           ficar DENTRO de #orcRaiz: o main.js faz
+           `raizOrc.querySelector('[data-ok]')`, e um querySelector não
+           atravessa irmãos. -->
+
+      <!-- Ecrã de sucesso, mostrado depois de confirmar -->
+      <div class="envio-ok" data-ok hidden>
+        <div class="envio-ok__ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3 tabindex="-1">Pedido pronto a enviar</h3>
+        <p>Abra o WhatsApp para enviar o pedido à JVI e receber a confirmação. Se os separadores abrirem sozinhos, pode ignorá-los.</p>
+        <p class="envio-ok__nota" data-ok-nota></p>
+        <a class="btn btn--wa btn--bloco" data-ok-empresa href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.48 9 9 0 0 1-1.67-2.07c-.17-.3 0-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.38s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.13-.28-.2-.58-.35z"/><path d="M12.051 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.945c0 2.096.548 4.142 1.588 5.945L0 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.585 0 11.946-5.36 11.949-11.945a11.9 11.9 0 0 0-3.421-8.4"/></svg>
+          <span>Enviar o pedido à JVI</span>
+        </a>
+        <a class="btn btn--vidro btn--bloco" data-ok-cliente href="#" target="_blank" rel="noopener" hidden>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.48 9 9 0 0 1-1.67-2.07c-.17-.3 0-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.38s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.13-.28-.2-.58-.35z"/><path d="M12.051 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.945c0 2.096.548 4.142 1.588 5.945L0 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.585 0 11.946-5.36 11.949-11.945a11.9 11.9 0 0 0-3.421-8.4"/></svg>
+          <span>Receber a confirmação no meu WhatsApp</span>
+        </a>
+        <button class="envio-ok__fechar" type="button" data-ok-fechar>Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TEMPLATE DO FORMULÁRIO (3 PASSOS) ===================== -->
+<template id="tplOrc">
+  <form class="orc" novalidate data-orc>
+    <!-- Indicador de progresso -->
+    <div class="orc__cabec">
+      <ol class="orc__passos" data-passos>
+        <li class="orc-passo" data-passo="0" data-estado="ativo"><span class="orc-passo__n">1</span><span class="orc-passo__t">Emissor</span></li>
+        <li class="orc-passo" data-passo="1" data-estado="por-fazer"><span class="orc-passo__n">2</span><span class="orc-passo__t">Carga</span></li>
+        <li class="orc-passo" data-passo="2" data-estado="por-fazer"><span class="orc-passo__n">3</span><span class="orc-passo__t">Pagamento</span></li>
+      </ol>
+      <div class="orc__barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33" aria-label="Progresso do pedido"><span></span></div>
+    </div>
+
+    <div class="orc__corpo">
+      <!-- ===================== PASSO 1 ===================== -->
+      <fieldset class="orc-seccao" data-seccao="0" data-ativa="true">
+        <legend class="sr-only">Passo 1 — dados do emissor</legend>
+        <h3 class="orc-seccao__t">Quem envia a carga</h3>
+        <div class="campos campos--2">
+          <div class="campo" data-campo="nome">
+            <label for="orcNome">Nome <span class="ob">*</span></label>
+            <input id="orcNome" name="nome" type="text" maxlength="80" placeholder="Ex.: João Pedro" required autocomplete="given-name">
+            <span class="campo__erro">Indique o primeiro nome.</span>
+          </div>
+          <div class="campo" data-campo="apelido">
+            <label for="orcApelido">Apelido <span class="ob">*</span></label>
+            <input id="orcApelido" name="apelido" type="text" maxlength="80" placeholder="Ex.: Machava" required autocomplete="family-name">
+            <span class="campo__erro">Indique o apelido.</span>
+          </div>
+          <div class="campo" data-campo="provincia">
+            <label for="orcProvincia">Província <span class="ob">*</span></label>
+            <select id="orcProvincia" name="provincia" required></select>
+            <span class="campo__erro">Escolha a província.</span>
+          </div>
+          <div class="campo" data-campo="morada">
+            <label for="orcMorada">Morada / bairro <span class="ob">*</span></label>
+            <input id="orcMorada" name="morada" type="text" maxlength="200" placeholder="Ex.: Sommerschield, Maputo" required autocomplete="street-address">
+            <span class="campo__erro">Indique a morada ou bairro.</span>
+          </div>
+          <div class="campo campo--largo" data-campo="telefone">
+            <label for="orcTelefone">Telefone <span class="ob">*</span></label>
+            <!-- C2: o exemplo é um número inventado, não o da JVI. C1: só a
+                 primeira frase da ajuda; a segunda convidava a escrever mais. -->
+            <input id="orcTelefone" name="telefone" type="tel" inputmode="tel" maxlength="40" placeholder="Ex.: 84 123 4567" required autocomplete="tel">
+            <span class="campo__ajuda">É este número que recebe a confirmação.</span>
+            <span class="campo__erro">Indique um número moçambicano válido: 9 dígitos, a começar por 8.</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ===================== PASSO 2 ===================== -->
+      <fieldset class="orc-seccao" data-seccao="1">
+        <legend class="sr-only">Passo 2 — dados da carga</legend>
+        <h3 class="orc-seccao__t">A sua carga</h3>
+        <div class="campos campos--2">
+          <div class="campo" data-campo="destinatario">
+            <label for="orcDestinatario">Quem recebe <span class="ob">*</span></label>
+            <input id="orcDestinatario" name="destinatario" type="text" maxlength="120" placeholder="Nome de quem recebe" required>
+            <span class="campo__erro">Indique quem recebe a carga.</span>
+          </div>
+          <div class="campo" data-campo="provinciaDestino">
+            <label for="orcProvinciaDestino">Província de destino <span class="ob">*</span></label>
+            <select id="orcProvinciaDestino" name="provinciaDestino" required></select>
+            <span class="campo__erro">Escolha a província de destino.</span>
+          </div>
+          <div class="campo" data-campo="peso">
+            <label for="orcPeso">Peso (kg) <span class="ob">*</span></label>
+            <!-- type=text, NÃO number: um input number engole a vírgula
+                 decimal e devolve value="" quando se escreve 11,7, que é
+                 a notação normal em Moçambique. A validação do intervalo
+                 é feita por JS, em campoMau(). -->
+            <input id="orcPeso" name="peso" type="text" inputmode="decimal" maxlength="8" placeholder="Ex.: 15 ou 11,7" required>
+            <span class="campo__ajuda">Pode escrever 11,7 — a vírgula é aceite.</span>
+            <span class="campo__erro">Indique o peso em quilogramas, entre 0,1 e 100 000.</span>
+          </div>
+          <!-- 8C/C8: as dimensões saíram ("não é preciso"), e a descrição
+               passou a opcional, com o exemplo entre parênteses. -->
+          <div class="campo campo--largo" data-campo="descricao">
+            <label for="orcDescricao">Descrição da mercadoria <span class="opc">opcional</span></label>
+            <textarea id="orcDescricao" name="descricao" rows="3" maxlength="1200" placeholder="(ex.: camisetas)"></textarea>
+          </div>
+        </div>
+
+        <!-- C4: caixa verde, obrigatória para avançar. -->
+        <div class="campo campo--verif" data-campo="embarque">
+          <label class="verif" for="orcEmbarque">
+            <input id="orcEmbarque" name="embarque" type="checkbox" value="sim" required>
+            <span>Confirmo que a mercadoria está embalada e pronta para o embarque. <span class="ob">*</span></span>
+          </label>
+          <span class="campo__erro">Confirme que a carga está pronta para o embarque.</span>
+        </div>
+
+        <!-- Custo estimado, calculado com o mesmo módulo que os testes
+             usam. A região viva está à volta, e não dentro, porque
+             .orc-preco arranca em `hidden` e uma live region que
+             aparece já com o texto nem sempre é anunciada. -->
+        <div class="orc-preco__vivo" role="status" aria-live="polite">
+          <div class="orc-preco" data-preco hidden>
+            <span class="orc-preco__r">Base <b data-p-base>—</b></span>
+            <span class="orc-preco__r">IVA 16% <b data-p-iva>—</b></span>
+            <span class="orc-preco__r orc-preco__r--total">Total <b data-p-total>—</b></span>
+          </div>
+        </div>
+        <p class="orc-preco__nota">Valor estimado pela tabela em vigor. Confirmamos o preço final ao fechar o orçamento.</p>
+      </fieldset>
+
+      <!-- ===================== PASSO 3 ===================== -->
+      <fieldset class="orc-seccao" data-seccao="2">
+        <legend class="sr-only">Passo 3 — pagamento</legend>
+        <h3 class="orc-seccao__t">Como pretende pagar</h3>
+        <div class="campos">
+          <div class="campo campo--largo" data-campo="pagamento">
+            <span class="campo__rotulo" id="rotPag">Forma de pagamento <span class="ob">*</span></span>
+            <!-- 8C/C8: e-Mola e M-Pesa na mesma opção (dinheiro móvel). Os
+                 dois rádios continuam separados lá dentro: o valor guardado
+                 é o mesmo de sempre, e a JVI sabe por qual dos dois cobrar. -->
+            <div class="opcoes opcoes--pag" role="radiogroup" aria-labelledby="rotPag">
+              <div class="opcao opcao--movel">
+                <span class="opcao__t">Dinheiro móvel<small>Movitel ou Vodacom</small></span>
+                <span class="opcao__subs">
+                  <label class="opcao__sub"><input type="radio" name="pagamento" value="e-Mola" checked> e-Mola</label>
+                  <label class="opcao__sub"><input type="radio" name="pagamento" value="M-Pesa"> M-Pesa</label>
+                </span>
+              </div>
+              <label class="opcao"><input type="radio" name="pagamento" value="Transferência bancária"> <span>Transferência bancária<small>Para a conta da JVI</small></span></label>
+            </div>
+          </div>
+
+          <div class="campo campo--largo" data-campo="pagarNoLevantamento">
+            <!-- C5: QUANDO paga, à parte da forma. As duas opções valem e
+                 nenhuma vem marcada: a pessoa escolhe. O valor continua
+                 `sim`/`nao` de "paga no levantamento", que é o que a função
+                 serverless e as mensagens já conhecem. -->
+            <span class="campo__rotulo" id="rotLev">Quando paga <span class="ob">*</span></span>
+            <span class="campo__ajuda" id="ajudaLev">Paga no acto de envio ou no acto de levantamento da carga.</span>
+            <div class="opcoes opcoes--simnao" role="radiogroup" aria-labelledby="rotLev" aria-describedby="ajudaLev">
+              <label class="opcao"><input type="radio" name="pagarNoLevantamento" value="nao" required> <span>No acto de envio<small>Ao entregar a carga à JVI</small></span></label>
+              <label class="opcao"><input type="radio" name="pagarNoLevantamento" value="sim"> <span>No acto de levantamento<small>Na província de destino</small></span></label>
+            </div>
+            <span class="campo__erro">Escolha quando paga.</span>
+          </div>
+
+          <div class="consent" data-consent>
+            <input type="checkbox" name="consentimento" value="sim" id="orcConsent">
+            <label for="orcConsent">Aceito os termos do serviço e a <a href="#" data-legal="privacidade">Política de Privacidade</a>. <span class="ob">*</span></label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <!-- Anti-spam: invisível a humanos, com.tracke a bots.
+         A função serverless descarta o pedido se este campo vier
+         preenchido, e também se o envio acontecer em menos de 3 s. -->
+    <div class="hp">
+      <label for="orcWebsite">Não preencha este campo</label>
+      <input id="orcWebsite" name="website" type="text" tabindex="-1" autocomplete="off" inert>
+    </div>
+
+    <!-- Navegação -->
+    <div class="orc__nav">
+      <button class="btn btn--vidro" type="button" data-ant disabled>Voltar</button>
+      <span class="orc__conta" data-conta aria-live="polite">Passo 1 de 3</span>
+      <button class="btn btn--primario" type="button" data-seg>Continuar</button>
+    </div>
+
+    <div class="estado-envio" data-estado role="status" aria-live="polite"></div>
+  </form>
+</template>
+
+<!-- ===================== CONFIRMAÇÃO ANTES DO ENVIO ===================== -->
+<div class="confirm" id="confirm" data-aberto="false" role="dialog" aria-modal="true" aria-labelledby="confirmTitulo">
+  <div class="confirm__fundo" data-fechar-confirm></div>
+  <div class="confirm__caixa">
+    <span class="etiqueta">Confirmar</span>
+    <h2 id="confirmTitulo" class="modal__titulo">Confirme o seu <span class="verde">pedido</span></h2>
+    <p class="modal__lead">Leia e confirme. Depois enviamos tudo por WhatsApp — à JVI e ao seu número.</p>
+    <dl class="confirm__lista" data-resumo-confirm></dl>
+    <div class="confirm__nav">
+      <button class="btn btn--vidro" type="button" data-fechar-confirm>Voltar a editar</button>
+      <button class="btn btn--primario" type="button" data-confirmar>Confirmar e enviar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== POLÍTICA DE PRIVACIDADE ===================== -->
+<div class="legal" id="legalPrivacidade" data-aberto="false" role="dialog" aria-modal="true" aria-labelledby="ppTitulo">
+  <div class="legal__fundo" data-fechar-legal></div>
+  <div class="legal__caixa">
+    <button class="legal__fechar" data-fechar-legal aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="etiqueta">Privacidade</span>
+    <h2 id="ppTitulo" class="modal__titulo">Política de <span class="verde">Privacidade</span></h2>
+    <div class="pp">
+      <p class="pp__meta">JVI Carga &amp; Serviços, Lda · Av. 19 de Outubro, Terminal de Cargas Nº 113, Aeroporto de Maputo, Moçambique · NUEL 100449137 · NUIT 400501424 · jvicargaservicos@gmail.com</p>
+
+      <h3>Quem trata os seus dados</h3>
+      <p>A JVI Carga &amp; Serviços, Lda., com sede no Terminal de Cargas Nº 113 do Aeroporto de Maputo, é a entidade responsável pelo tratamento dos dados pessoais recolhidos através deste site.</p>
+
+      <h3>Que dados recolhemos</h3>
+      <p>Apenas os dados que voluntariamente introduz no formulário de pedido de orçamento:</p>
+      <ul>
+        <li><strong>Emissor:</strong> nome, apelido, província, morada ou bairro, e telefone.</li>
+        <li><strong>Mercadorias:</strong> peso, dimensões (se as indicar) e descrição da carga.</li>
+        <li><strong>Receptor:</strong> nome de quem recebe e província de destino.</li>
+        <li><strong>Valores e pagamento:</strong> forma de pagamento e se paga no levantamento.</li>
+      </ul>
+      <p>Não recolhemos categorias especiais de dados, nem dados de crianças. O formulário não pede email, número de volumes nem valor da carga.</p>
+
+      <h3>Para que usamos os dados</h3>
+      <ul>
+        <li>Elaborar e enviar a proposta de orçamento solicitada.</li>
+        <li>Estabelecer contacto directo sobre a remessa, por WhatsApp, telefone ou email.</li>
+        <li>Cumprir obrigações legais, fiscais e contratuais.</li>
+        <li>Prevenir o abuso automatizado do formulário.</li>
+      </ul>
+      <p>O endereço IP da visita é guardado temporariamente, em memória do servidor, apenas para limitar pedidos repetidos. Não é escrito em ficheiro e desaparece ao fim de uma hora ou quando o servidor é reiniciado.</p>
+      <div class="pp__destaque">
+        <p><strong>Não vendemos, alugamos nem cedemos os seus dados a terceiros para fins comerciais.</strong></p>
+      </div>
+
+      <h3>Base legal e prazo de conservação</h3>
+      <p>O tratamento assenta no <strong>consentimento</strong> que dá ao marcar a caixa no formulário e no <strong>execução de contrato</strong>, quando o pedido se converte numa remessa. Conservamos os dados durante <strong>24 meses</strong> a contar da última interacción, findos os quais são eliminados, salvo obrigação legal de guarda diferente.</p>
+
+      <h3>Onde ficam guardados</h3>
+      <p>Este pedido viaja por <strong>WhatsApp</strong>. O endereço <code>wa.me</code> redirecciona para servidores da <strong>Meta Platforms Ireland Ltd.</strong>, pelo que o conteúdo da mensagem — nome, contactos, morada e dados da carga — é transmitido a essa empresa. O e-mail, quando enviado, é processado pela <strong>Resend Inc.</strong> antes de chegar à caixa <strong>jvicargaservicos@gmail.com</strong>. O pedido fica registado numa folha de cálculo de acesso restrito da JVI. O site é alojado na <strong>Netlify</strong>, que processa os dados técnicos da visita nos seus próprios servidores.</p>
+      <p>O botão <strong>«Como chegar à JVI»</strong> abre o <strong>Google Maps</strong> num separador novo, num servidor da Google. É uma decisão sua: nada acontece enquanto não clicar. O link leva só a localização do terminal como destino — a JVI <strong>não recebe, não guarda e não vê a sua posição</strong>, e o site não pede nem acompanha a sua localização. Se preferir, o endereço está na secção <strong>Contactos</strong> e pode ser copiado para o mapa que usar.</p>
+      <p>A JVI é a entidade responsável pelo tratamento. Pode pedir a eliminação do seu pedido a qualquer momento, pelo endereço de email acima ou por telefone.</p>
+
+      <h3>Cookies</h3>
+      <p><strong>Este site não utiliza cookies.</strong> Não há rastreio de publicidade, nem analítica de terceiros. A tipografia é alojada no próprio site. O único serviço da Google que este site usa é o botão <strong>«Como chegar à JVI»</strong>, e apenas quando clica nele: aí abre o Google Maps num separador novo, num servidor da Google, e é o Google — não a JVI — que lhe pergunta, ou não, onde se encontra.</p>
+
+      <h3>Os seus direitos</h3>
+      <p>Pode, a qualquer momento, pedir o <strong>acesso</strong>, a <strong>rectificação</strong>, o <strong>apagamento</strong>, a <strong>limitação</strong> ou a <strong>oposição</strong> ao tratamento dos seus dados, bem como retirar o consentimento. Basta escrever para <strong>jvicargaservicos@gmail.com</strong> ou ligar <strong>+258 84 470 0012</strong>. Tem ainda o direito de reclamar junto da entidade competente de protecção de dados em Moçambique.</p>
+
+      <h3>Alterações a esta política</h3>
+      <p>Podemos actualizar este documento para reflectir mudanças legais ou operacionais. A data da última revisão é indicada abaixo e qualquer alteração significativa será assinalada nesta página.</p>
+    </div>
+    <p class="pp__meta pp__meta--fim">Última revisão: Setembro de 2026</p>
+  </div>
+</div>
+
+<!-- ===================== MAPA DO SITE ===================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "JVI Carga & Serviços, Lda",
+  "alternateName": "JVI Carga e Serviços",
+  "description": "Agência de carga em Maputo: envio de encomendas e correio, carga aérea e transporte rodoviário de carga para as dez províncias de Moçambique.",
+  "slogan": "Conectamos Moçambique. Ligamos cargas a oportunidades.",
+  "url": "https://jvicargaservicos.co.mz/",
+  "logo": "https://jvicargaservicos.co.mz/assets/logo-full.png",
+  "foundingDate": "2014",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. 19 de Outubro, Terminal de Cargas Nº 113, Aeroporto de Maputo",
+    "addressLocality": "Maputo",
+    "addressCountry": "MZ"
+  },
+  "location": {
+    "@type": "Place",
+    "name": "JVI Carga & Serviços — Terminal de Cargas Nº 113",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -25.9303375,
+      "longitude": 32.5715781
+    },
+    "hasMap": "https://www.google.com/maps/place/3H9C%2BVJ8,+Maputo/"
+  },
+  "telephone": "+258844700012",
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+258844700012",
+      "contactType": "customer service",
+      "areaServed": "MZ",
+      "availableLanguage": ["pt"]
+    },
+    {
+      "@type": "ContactPoint",
+      "name": "WhatsApp",
+      "telephone": "+258878066265",
+      "url": "https://wa.me/258878066265",
+      "contactType": "sales",
+      "areaServed": "MZ",
+      "availableLanguage": ["pt"]
+    }
+  ],
+  "email": "jvicargaservicos@gmail.com",
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Maputo" },
+    { "@type": "AdministrativeArea", "name": "Gaza" },
+    { "@type": "AdministrativeArea", "name": "Inhambane" },
+    { "@type": "AdministrativeArea", "name": "Sofala" },
+    { "@type": "AdministrativeArea", "name": "Manica" },
+    { "@type": "AdministrativeArea", "name": "Tete" },
+    { "@type": "AdministrativeArea", "name": "Zambézia" },
+    { "@type": "AdministrativeArea", "name": "Niassa" },
+    { "@type": "AdministrativeArea", "name": "Nampula" },
+    { "@type": "AdministrativeArea", "name": "Cabo Delgado" }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serviços de transporte e logística",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Envio de encomendas e correio para as províncias" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Carga aérea a partir do Aeroporto de Maputo" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Transporte rodoviário de carga" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Recolha e entrega porta-a-porta" } }
+    ]
+  },
+  "identifier": [
+    { "@type": "PropertyValue", "name": "NUEL", "value": "100449137" },
+    { "@type": "PropertyValue", "name": "NUIT", "value": "400501424" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quanto custa enviar uma carga?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Até 10 kg, o transporte custa 3 000 MT. Acima disso, 255 MT por cada quilo. O preço final inclui IVA de 16% e nunca desce quando o peso sobe."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto tempo demora a chegar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Entre 24 e 72 horas úteis dentro do país, por via aérea. Por estrada, consoante a rota. Confirmamos o prazo exacto ao fechar o orçamento."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como posso pagar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Por e-Mola, cartão de crédito ou numerário. Também pode pagar no levantamento, na província de destino, quando for buscar a encomenda."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Transportam para fora de Moçambique?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Trabalhamos com parceiros aéreos e rodoviários para Angola, África do Sul e Zimbabwe. Fale connosco para o seu destino específico."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como acompanho a minha encomenda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Assim que a carga é aceite, recebe o número de registo. O acompanhamento é feito por WhatsApp, com quem trata da sua remessa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que documentos preciso de entregar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Para mercadoria nacional, a factura ou a declaração de valor. Para carga internacional, a documentação comercial e, quando aplicável, a licença de importação. Confirmamos caso a caso."
+      }
+    }
+  ]
+}
+</script>
+
+<script src="js/main.js" type="module"></script>
+</body>
+</html>

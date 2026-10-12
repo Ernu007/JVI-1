@@ -1,0 +1,940 @@
+/* =========================================================
+   JVI Carga & Serviços, Lda — Landing Page
+   Tokens extraídos da identidade da marca
+   ========================================================= */
+
+:root {
+  /* Cores da marca */
+  --verde:        #A9CF44;
+  --verde-escuro: #82C91E;
+  --laranja:      #EA8240;
+  --base:         #0F172A;
+  --claro:        #CBD5E1;
+
+  /* Canais RGB das três cores de marca, para poderem ser usadas com
+     alfa: rgb(var(--verde-rgb) / 0.08). Sem isto, qualquer tons mais
+     claros da marca tinha de ser escrito à mão em rgba(), e mudar a
+     cor da marca significava editar dezenas de linhas. */
+  --verde-rgb:   169 207 68;
+  --laranja-rgb: 234 130 64;
+  --base-rgb:     15  23 42;
+  --claro-rgb:   203 213 225;
+
+  /* Derivados */
+  --base-2:       #131E33;
+  --base-3:       #1B2740;
+  --linha:        rgb(var(--verde-rgb) / .16);
+  --texto:        #E8EDF5;
+  --texto-suave:  rgb(var(--claro-rgb) / .82);
+  --texto-fraco:  rgb(var(--claro-rgb) / .66);
+
+  /* Superfícies que não tinham token */
+  --rodape:       #0B1220;   /* fundo do rodapé, um degrau abaixo do base */
+  --mapa:         #16243D;   /* degradê do cartão do mapa */
+
+  /* Branco translúcido. Havia doze alphas diferentes para o que devia
+     ser o mesmo peso de superfície e de contorno; o mesmo cartão
+     aparecia com 0.06 num sítio e 0.07 noutro. */
+  --vidro:        rgb(255 255 255 / 0.03);  /* preenchimento de superfície */
+  --borda:        rgb(255 255 255 / 0.07);  /* contorno de cartão */
+  --borda-forte:  rgb(255 255 255 / 0.11);  /* contorno de campo de texto */
+
+  /* Canais */
+  --wa:    #25D366;
+
+  /* Fase 8C/C5: os botões fixos de contacto com a paleta do Google —
+     "vermelho, verde e branco", um por botão. Os "-claro" são os tons da
+     própria paleta para a legenda sobre o fundo escuro (AA). */
+  --google-vermelho:       #EA4335;
+  --google-verde:          #34A853;
+  --google-branco:         #FFFFFF;
+  --google-vermelho-claro: #F28B82;
+  --google-verde-claro:    #81C995;
+
+  /* Estados. O mesmo estado semântico tinha três vermelhos
+     diferentes espalhados por quatro componentes. */
+  --erro:        #F87171;    /* borda */
+  --erro-txt:    #FCA5A5;    /* texto do erro */
+  --aviso-txt:   #F5B183;    /* texto do aviso */
+
+  /* Texto sobre fundos sólidos de cor viva */
+  --sobre-laranja: #1A0D03;
+  --sobre-wa:      #05230F;
+
+  /* Tipografia */
+  --fonte: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Métrica */
+  --largura: 1240px;
+  /* Tamanho base do texto corrido. Rótulos, legendas e texto legal
+     ficam abaixo de propósito — é hierarquia, não um valor solto. */
+  --corpo: 16px;
+  --raio: 18px;
+  --raio-sm: 10px;
+  --sombra: 0 24px 60px -28px rgba(0, 0, 0, 0.85);
+  --transicao: 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* clip (nao hidden) impede que o menu off-canvas ou o canvas 3D
+     alarguem a viewport em browsers moveis, sem criar scroll container */
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--fonte);
+  background: var(--base);
+  color: var(--texto);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg, canvas { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+ul { list-style: none; }
+
+/* O atributo hidden tem de vencer os display: das classes utilitarias */
+[hidden] { display: none !important; }
+
+:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Utilitários ---------- */
+.container { width: 100%; max-width: var(--largura); margin-inline: auto; padding-inline: 24px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.verde  { color: var(--verde); }
+.laranja { color: var(--laranja); }
+
+.seccao { position: relative; padding: clamp(72px, 11vw, 140px) 0; }
+.seccao--alt { background: var(--base-2); }
+
+/* Etiqueta de secção */
+.etiqueta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 12px; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--verde);
+  padding: 8px 16px; border: 1px solid var(--linha);
+  border-radius: 100px; background: rgb(var(--verde-rgb) / .07);
+  margin-bottom: 20px;
+}
+/* Fase 8C/C4: "estende ali para a direita". A etiqueta cresce para a
+   direita (o ponto fica à esquerda), sem mudar de tamanho de letra. */
+.etiqueta--larga { padding: 10px 34px 10px 18px; min-width: 15em; }
+.etiqueta::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--verde); box-shadow: 0 0 0 4px rgb(var(--verde-rgb) / .2);
+}
+
+.titulo-seccao {
+  font-size: clamp(28px, 4.4vw, 46px);
+  line-height: 1.12; font-weight: 800; letter-spacing: -0.025em;
+  max-width: 20ch; margin-bottom: 16px;
+}
+.titulo-seccao--centro { margin-inline: auto; text-align: center; }
+
+.subtitulo-seccao {
+  font-size: clamp(16px, 1.7vw, 18px);
+  color: var(--texto-suave); max-width: 60ch;
+}
+.subtitulo-seccao--centro { margin-inline: auto; text-align: center; }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 16px 28px; border-radius: 100px;
+  font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
+  transition: transform var(--transicao), box-shadow var(--transicao), background var(--transicao);
+  white-space: nowrap;
+}
+.btn svg { width: 19px; height: 19px; flex: none; }
+.btn--primario {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-escuro) 100%);
+  color: var(--base); box-shadow: 0 12px 30px -12px rgb(var(--verde-rgb) / .7);
+}
+.btn--primario:hover { transform: translateY(-3px); box-shadow: 0 20px 42px -14px rgb(var(--verde-rgb) / .85); }
+.btn--laranja {
+  background: var(--laranja); color: var(--sobre-laranja);
+  box-shadow: 0 12px 30px -12px rgb(var(--laranja-rgb) / .65);
+}
+.btn--laranja:hover { transform: translateY(-3px); }
+.btn--vidro {
+  background: rgba(255, 255, 255, 0.05); color: var(--texto);
+  border: 1px solid rgba(255, 255, 255, 0.16); backdrop-filter: blur(10px);
+}
+.btn--vidro:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-3px); }
+.btn--bloco { width: 100%; }
+.btn:active { transform: translateY(-1px) scale(0.99); }
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+.header {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  padding: 16px 0;
+  transition: background var(--transicao), padding var(--transicao), box-shadow var(--transicao);
+}
+.header--preso {
+  padding: 8px 0;
+  background: rgb(var(--base-rgb) / .86);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 1px 0 var(--linha), 0 12px 34px -22px #000;
+}
+.header__int { display: flex; align-items: center; gap: 20px; }
+
+/* Skip link. Escondido fora do foco, e aparece no primeiro Tab —
+   WCAG 2.4.1. Fica acima de tudo e é o único elemento que o
+   `outline: 2px solid var(--verde)` global não substitui. */
+.pular {
+  position: absolute; z-index: 200;
+  top: 8px; left: 8px;
+  padding: 12px 18px;
+  border-radius: var(--raio-sm);
+  background: var(--verde); color: var(--base);
+  font-size: 15px; font-weight: 800;
+  transform: translateY(-160%);
+  transition: transform 0.15s ease;
+}
+.pular:focus { transform: translateY(0); }
+
+/* O `main` tem `tabindex="-1"` para receber o foco do skip link e dos
+   links de navegação interna. Sem isto não se vê um anel de foco à volta
+   de todo o conteúdo: o foco entra no `main` e não fica nenhum sinal de
+   onde se está. */
+main:focus-visible { outline: 3px solid var(--verde); outline-offset: -3px; }
+
+.brand { display: flex; align-items: center; gap: 12px; flex: none; min-width: 44px; min-height: 44px; }
+.brand__logo { height: 46px; width: auto; transition: height var(--transicao); }
+.header--preso .brand__logo { height: 38px; }
+.brand__txt { display: none; line-height: 1.2; }
+.brand__txt b { display: block; font-size: 15px; font-weight: 800; letter-spacing: 0.02em; }
+.brand__txt span { font-size: 11px; color: var(--verde); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; }
+
+.nav { display: none; margin-left: auto; }
+.nav ul { display: flex; gap: 4px; }
+.nav a {
+  display: block; padding: 8px 12px; border-radius: 8px;
+  font-size: 14.5px; font-weight: 600; color: var(--texto-suave);
+  transition: color var(--transicao), background var(--transicao);
+}
+.nav a:hover { color: var(--verde); background: rgb(var(--verde-rgb) / .08); }
+
+/* B8: o botão de orçamento fica SEMPRE à vista, em todos os
+   tamanhos de ecrã. O cliente repetiu duas vezes que é o botão que
+   converte. O `.header` já é `position: fixed`, por isso o botão vai
+   com ele; o `sticky` com `top` declarado na mesma regra é o seguro
+   para o dia em que o header deixar de ser fixo — `sticky` sem `top`
+   não prende nada.
+
+   Não passa a `fixed` por conta própria: tentou-se, e a 1280 px o
+   botão ficava por cima do último item do menu. No telemóvel encolhe
+   e fica ao lado do botão do menu. */
+.header__cta { display: block; position: sticky; top: 0; z-index: 5; margin-left: auto; }
+/* Fase 9 (9.8): encolhe a letra e o padding, mas não o alvo de toque. Sem
+   o `min-height` o botão ficava com 42,3px aqui e 40,6px abaixo de 380px
+   (medido no Chrome) — e é o botão que o cliente quer sempre à mão. */
+@media (max-width: 899px) {
+  .header__cta .btn { padding: 10px 16px; font-size: 13.5px; gap: 8px; min-height: 44px; }
+  .header__cta .btn svg { width: 16px; height: 16px; }
+}
+/* Sem o menu de topo, o botão do menu encosta-se ao de orçamento. */
+@media (max-width: 1199px) { .header__cta + .menu-btn { margin-left: 12px; } }
+@media (max-width: 380px) {
+  /* Abaixo de 380 px o texto não cabe ao lado do logótipo e do menu. */
+  .header__cta .btn { padding: 10px 12px; font-size: 12.5px; min-height: 44px; }
+  .header__cta .btn svg { display: none; }
+}
+
+/* Menu mobile */
+.menu-btn {
+  margin-left: auto; width: 44px; height: 44px; border-radius: 12px;
+  display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+}
+.menu-btn svg { width: 22px; height: 22px; transition: transform var(--transicao); }
+.menu-btn[aria-expanded="true"] svg { transform: rotate(90deg); }
+
+/* Menu off-canvas. Fica display:none quando fechado: um painel fixo
+   deslocado fora do ecrã ainda conta para a largura da viewport em
+   browsers moveis, o que encolhe/escala a pagina inteira. */
+.menu {
+  position: fixed; inset: 0 0 0 auto; width: min(360px, 86vw); z-index: 95;
+  background: var(--base-2); border-left: 1px solid var(--linha);
+  padding: 92px 28px 32px;
+  display: none;
+  overflow-y: auto; flex-direction: column; gap: 6px;
+}
+.menu[data-aberto="true"] { display: flex; animation: menuEntra 0.4s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: -30px 0 80px -30px #000; }
+.menu[data-estado="a-fechar"] { display: flex; animation: menuSai 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+@keyframes menuEntra { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes menuSai { from { transform: translateX(0); } to { transform: translateX(100%); } }
+.menu a {
+  padding: 14px 16px; border-radius: 12px; font-weight: 700; font-size: 16px;
+  color: var(--texto-suave); border: 1px solid transparent;
+  transition: all var(--transicao);
+}
+.menu a:hover { color: var(--verde); background: rgb(var(--verde-rgb) / .08); border-color: var(--linha); }
+.menu .btn { margin-top: 14px; }
+.menu-fundo {
+  position: fixed; inset: 0; z-index: 94; background: rgba(6, 11, 22, 0.72);
+  backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity var(--transicao);
+}
+.menu-fundo[data-visivel="true"] { opacity: 1; pointer-events: auto; }
+
+/* Sete itens no menu (Fase 8B) já não cabem a 900 px ao lado do nome
+   da marca e do botão de orçamento: o menu de topo aparece a partir de
+   1200 px, e o nome por extenso só quando sobra largura para ele. */
+@media (min-width: 1200px) {
+  .nav { display: block; margin-left: auto; }
+  .nav + .header__cta { margin-left: 0; }
+  .menu-btn, .menu, .menu-fundo { display: none; }
+}
+@media (min-width: 700px) and (max-width: 1199px), (min-width: 1440px) {
+  .brand__txt { display: block; }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  position: relative; min-height: 100svh;
+  display: flex; align-items: center;
+  padding: 130px 0 80px; overflow: hidden;
+}
+.hero__fundo { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hero__fundo canvas { width: 100%; height: 100%; }
+.hero__glow {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(760px 520px at 74% 30%, rgb(var(--verde-rgb) / .17), transparent 66%),
+    radial-gradient(620px 460px at 12% 78%, rgb(var(--laranja-rgb) / .12), transparent 66%);
+}
+/* Vinheta suave: puxa o olhar para o texto e esconde as bordas do canvas */
+.hero__glow::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, var(--base) 0%, rgb(var(--base-rgb) / .72) 26%, transparent 52%),
+    linear-gradient(to top, var(--base) 0%, transparent 26%);
+}
+.hero__grelha {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.5;
+  background-image:
+    linear-gradient(rgb(var(--verde-rgb) / .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--verde-rgb) / .05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 40%, #000 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 40%, #000 35%, transparent 100%);
+}
+.hero__int { position: relative; z-index: 2; }
+
+.hero__conteudo { max-width: 660px; }
+.hero__conteudo h1 {
+  font-size: clamp(38px, 7.4vw, 76px); line-height: 1.03;
+  font-weight: 800; letter-spacing: -0.04em; margin-bottom: 22px;
+}
+.hero__conteudo h1 em {
+  font-style: normal;
+  background: linear-gradient(100deg, var(--verde) 0%, var(--verde-escuro) 55%, var(--laranja) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero__lead {
+  font-size: clamp(16px, 2.1vw, 20px); color: var(--texto-suave);
+  max-width: 54ch; margin-bottom: 32px;
+}
+.hero__acoes { display: flex; flex-wrap: wrap; gap: 13px; margin-bottom: 44px; }
+
+/* A disposição das acções do hero é ESCrita, não deixada ao acaso.
+   Com `flex-wrap: wrap` e larguras intrínsecas, quem caía em que linha
+   dependia do comprimento do texto: medido no Chrome, os três botões
+   davam 204.50 + 221.20 + 217.88 + dois gaps de 13 = 669.58px contra
+   660px de contentor, e o "Como chegar à JVI" descia sozinho, com a
+   largura dele, encostado à esquerda por baixo do botão primário —
+   lia-se como botão órfão.
+
+   Por isso o botão das direcções é `btn--bloco`: `flex: 1 0 100%` põe
+   numa base de 100% do contentor, o que garante que ele fica na linha
+   de baixo e a ocupar a largura toda. A primeira linha leva os outros
+   dois — orçamento primário a par do WhatsApp — e cabe com folga
+   (204.50 + 13 + 221.20 = 438.70px). */
+
+/* Fase 9 (9.4): "pedir orçamento" e "falar no WhatsApp" ocupam METADE cada
+   um da linha das direcções. Antes cada um tinha a largura do seu texto
+   (204.50 e 221.20px) e a linha de cima acabava a meio da de baixo.
+
+   A base é metade da linha menos metade do gap (13px / 2), e os dois
+   crescem por igual: ficam com a mesma largura tenham o texto que tiverem,
+   e as duas metades mais o gap dão exactamente a largura do botão de baixo.
+   A regra das direcções vem a seguir e ganha por especificidade. */
+.hero__acoes > * { flex: 1 1 calc(50% - 6.5px); }
+.hero__acoes > .btn--bloco { flex: 1 0 100%; }
+
+/* Abaixo de 520px de viewport cada metade deixa de levar o texto do botão
+   mais largo: a 521px o contentor tem 473px, cada metade 230px, e "Falar
+   no WhatsApp" mede 221.20px — é o último ecrã em que cabe com folga. As
+   três acções passam a coluna de botões inteiros, que é também o que se
+   toca melhor num telemóvel. */
+@media (max-width: 520px) {
+  .hero__acoes > * { flex: 1 0 100%; }
+}
+
+
+/* O percurso com setas, junto ao botão "Como chegar à JVI" (D36). É
+   texto: três passos, do aeroporto ao terminal, com a seta de seguir em
+   frente num disco verde e o pin laranja na chegada. Não há setas de
+   viragem porque o projecto não sabe para que lado se vira — ver
+   `PASSOS_PERCURSO` em js/rota.js.
+
+   O fundo é quase opaco de propósito: no hero o percurso fica por cima do
+   mapa, e com o `--vidro` dos cartões as fronteiras das províncias
+   atravessavam o texto. */
+.percurso { font-size: 14px; color: var(--texto-suave); }
+.percurso__passos {
+  list-style: none; margin: 0; padding: 11px 14px;
+  display: flex; flex-wrap: wrap; gap: 10px 30px;
+  border: 1px solid var(--linha); border-radius: var(--raio);
+  background: rgb(var(--base-rgb) / .78);
+}
+.percurso__passo { display: flex; align-items: center; gap: 9px; line-height: 1.3; }
+.percurso__txt b { display: block; color: var(--texto); font-weight: 800; }
+.percurso__seta {
+  flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  background: rgb(var(--verde-rgb) / .14); color: var(--verde);
+  font-size: 17px; font-weight: 800; line-height: 1;
+}
+.percurso__passo--chegada svg {
+  flex: none; width: 26px; height: 26px; padding: 4px; border-radius: 50%;
+  background: rgb(var(--laranja-rgb) / .16); color: var(--laranja);
+}
+.percurso__nota { margin-top: 7px; font-size: 12.5px; line-height: 1.5; color: var(--texto-fraco); }
+/* No telemóvel os passos ficam uns por baixo dos outros, como numa lista
+   de instruções, e cada um numa linha só. */
+@media (max-width: 760px) {
+  .percurso__passos { flex-direction: column; gap: 9px; }
+  .percurso__txt b { display: inline; }
+}
+/* No hero o percurso fica encostado ao botão, e é ele que passa a dar a
+   distância até às provas. Sem `:has()` a distância ao botão fica nos
+   44px de sempre: mais larga, mas inteira. */
+.hero__acoes:has(+ .percurso) { margin-bottom: 14px; }
+.hero__acoes + .percurso { margin-bottom: 32px; }
+
+/* Fase 9 (9.8): no telemóvel o mapa sai de trás do texto.
+
+   O canvas ocupa o hero inteiro, por trás do conteúdo. No computador o
+   país fica à direita e o texto à esquerda. Num ecrã estreito ficavam um
+   em cima do outro: com as províncias acesas, o parágrafo e os botões
+   liam-se por cima de um mapa verde, e do mapa via-se o que sobrava entre
+   as letras. Não se lia nem um nem outro.
+
+   Abaixo de 760px o mapa passa a ter a sua caixa, em fluxo, por baixo do
+   conteúdo: o texto fica sobre o fundo liso e o mapa vê-se inteiro, com o
+   avião. O limite é o do `w < 760` do js/hero-voo.js — o teste confere
+   que são o mesmo. O véu que escurecia o texto deixa de fazer falta. */
+@media (max-width: 759px) {
+  .hero { flex-direction: column; align-items: stretch; padding-bottom: 0; }
+  .hero__fundo { position: relative; inset: auto; order: 2; height: min(150vw, 600px); margin-top: 12px; }
+  .hero__glow::after { background: none; }
+}
+
+.hero__provas { display: flex; flex-wrap: wrap; gap: 12px 34px; }
+.prova { display: flex; align-items: center; gap: 9px; font-size: 14px; color: var(--texto-suave); }
+.prova svg { width: 18px; height: 18px; color: var(--verde); flex: none; }
+.prova b { color: var(--texto); font-weight: 800; }
+
+/* Indicador de scroll */
+.scroll-hint {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  z-index: 3; display: none; flex-direction: column; align-items: center; gap: 8px;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--texto-fraco); font-weight: 700;
+}
+.scroll-hint__linha { width: 1px; height: 40px; background: linear-gradient(var(--verde), transparent); }
+@media (min-width: 900px) { .scroll-hint { display: flex; } }
+
+/* =========================================================
+   DESTAQUES (4 diferenciais)
+   ========================================================= */
+.grelha-4 { display: grid; gap: 18px; margin-top: 52px; }
+@media (min-width: 640px)  { .grelha-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .grelha-4 { grid-template-columns: repeat(4, 1fr); } }
+
+.card {
+  position: relative; padding: 30px 26px; border-radius: var(--raio);
+  background: linear-gradient(160deg, var(--base-3) 0%, var(--base-2) 100%);
+  border: 1px solid var(--borda);
+  overflow: hidden; transition: transform var(--transicao), border-color var(--transicao);
+}
+.card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--verde), var(--laranja));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card:hover { transform: translateY(-7px); border-color: rgb(var(--verde-rgb) / .3); }
+.card:hover::before { transform: scaleX(1); }
+.card__ico {
+  width: 52px; height: 52px; border-radius: 15px; display: grid; place-items: center;
+  background: rgb(var(--verde-rgb) / .12); color: var(--verde); margin-bottom: 20px;
+}
+.card__ico svg { width: 25px; height: 25px; }
+.card h3 { font-size: 19px; font-weight: 800; margin-bottom: 9px; letter-spacing: -0.02em; }
+.card p { font-size: 14.5px; color: var(--texto-suave); }
+
+/* =========================================================
+   SERVIÇOS
+   ========================================================= */
+/* B5: dois cartões lado a lado, em duas colunas fixas. Eram três
+   colunas para quatro cartões menos, e a última linha ficava com uma
+   figura sozinha — o "alternado" que o cliente viu. Abaixo de 640 px
+   passa a uma coluna: dois cartões de 160 px num telemóvel não se leem. */
+.grelha-3 { display: grid; gap: 20px; margin-top: 52px; grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 640px) { .grelha-3 { grid-template-columns: 1fr; } }
+
+/* Fase 8C/C4: "Outras províncias" maior e centrado — cartão removido na
+   V1 + ajustes do cliente (Outubro, ver commit "V1+ajustes 2"). A regra
+   do `.servico--destaque` fica morta (nenhum cartão a usa) de propósito:
+   remover a classe agora era reescrever este bloco inteiro para nada.
+   O `:first-child { grid-row: span 2 }` abaixo SIM tinha de sair: sem o
+   cartão das duas fotografias emparelhadas (também removido), ele
+   passava a esticar o cartão "Transporte aéreo" para o dobro da altura
+   do "Transporte rodoviário" ao lado — os dois cartões restantes ficam
+   iguais, lado a lado. */
+.servico--destaque {
+  grid-column: 1 / -1; justify-self: center; width: min(100%, 860px);
+  text-align: center;
+}
+.servico--destaque .servico__figura { aspect-ratio: 21 / 8; }
+.servico.servico--destaque h3 { font-size: clamp(24px, 3vw, 32px); }
+.servico.servico--destaque p { font-size: 17px; }
+
+.servico {
+  position: relative; border-radius: var(--raio); overflow: hidden;
+  background: var(--base-3); border: 1px solid var(--borda);
+  display: flex; flex-direction: column;
+  transition: transform var(--transicao), border-color var(--transicao);
+}
+.servico:hover { transform: translateY(-7px); border-color: rgb(var(--verde-rgb) / .3); }
+.servico__figura { position: relative; margin: 0; aspect-ratio: 16 / 10; overflow: hidden; background: var(--base-2); }
+/* B5: as caixas no chão de um lado, as encomendas para a Zambézia do
+   outro — na mesma figura, metade cada. */
+.servico__figura--par { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.servico__figura img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.servico:hover .servico__figura img { transform: scale(1.07); }
+.servico__figura::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--base-3) 4%, rgba(19, 30, 51, 0.15) 55%, transparent);
+}
+.servico__n {
+  position: absolute; top: 14px; left: 14px; z-index: 2;
+  font-size: 12px; font-weight: 800; letter-spacing: 0.1em;
+  padding: 5px 12px; border-radius: 100px;
+  background: rgb(var(--base-rgb) / .75); backdrop-filter: blur(8px);
+  color: var(--verde); border: 1px solid var(--linha);
+}
+
+/* O corpo do cartão é o próprio `<article>` (sem `<div>` à volta do
+   texto): cada filho que não é a figura leva a margem lateral. */
+.servico { padding-bottom: 28px; }
+.servico > :not(.servico__figura) { margin-inline: 26px; }
+.servico h3 { font-size: 20px; font-weight: 800; margin-top: 24px; margin-bottom: 10px; letter-spacing: -0.02em; }
+.servico p { font-size: var(--corpo); color: var(--texto-suave); margin-bottom: 16px; }
+.servico__lista { margin-top: auto; display: grid; gap: 7px; }
+.servico__lista li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--texto-fraco); }
+.servico__lista svg { width: 15px; height: 15px; color: var(--verde-escuro); flex: none; margin-top: 3px; }
+
+/* =========================================================
+   FLUXO — scrolltelling das 5 etapas
+   ========================================================= */
+.fluxo { position: relative; }
+.fluxo__linha {
+  position: absolute; left: 29px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(180deg, var(--verde), var(--verde-escuro) 55%, var(--laranja));
+  transform-origin: top;
+}
+@media (min-width: 900px) { .fluxo__linha { left: 50%; transform: translateX(-50%); } }
+
+.fluxo__lista { position: relative; display: grid; gap: 18px; }
+.etapa {
+  position: relative; padding: 28px 28px 28px 78px; border-radius: var(--raio);
+  background: var(--base-2); border: 1px solid var(--borda);
+  transition: border-color var(--transicao), transform var(--transicao);
+}
+.etapa:hover { border-color: rgb(var(--verde-rgb) / .28); }
+.etapa__ponto {
+  position: absolute; left: 12px; top: 30px; z-index: 2;
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--base); border: 2px solid var(--verde);
+  font-size: 13px; font-weight: 800; color: var(--verde);
+  box-shadow: 0 0 0 5px rgb(var(--verde-rgb) / .1);
+  transition: background var(--transicao), color var(--transicao);
+}
+.etapa[aria-current="true"] .etapa__ponto { background: var(--verde); color: var(--base); }
+.etapa__et { font-size: 11.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--laranja); }
+.etapa h3 { font-size: 20px; font-weight: 800; margin: 6px 0 9px; letter-spacing: -0.02em; }
+.etapa p { font-size: var(--corpo); color: var(--texto-suave); }
+
+@media (min-width: 900px) {
+  .fluxo__lista { gap: 26px; }
+  .etapa { width: 50%; padding: 30px 32px; }
+  .etapa:nth-child(even) { margin-left: 50%; }
+  .etapa__ponto { left: auto; right: -17px; top: 32px; }
+  .etapa:nth-child(even) .etapa__ponto { right: auto; left: -17px; }
+}
+
+/* =========================================================
+   COBERTURA — mapa
+   ========================================================= */
+.mapa-zona { position: relative; margin-top: 46px; }
+.mapa-lado { display: grid; gap: 20px; }
+@media (min-width: 900px) {
+  .mapa-lado { grid-template-columns: minmax(0, 1fr) 260px; align-items: start; }
+}
+.mapa-caixa {
+  position: relative; border-radius: var(--raio); overflow: hidden;
+  background: radial-gradient(ellipse at 50% 45%, var(--mapa) 0%, var(--base) 74%);
+  border: 1px solid var(--linha);
+}
+.mapa-grafico { height: clamp(440px, 52vw, 700px); }
+.mapa-caixa canvas { width: 100%; height: 100%; }
+.mapa-aviso {
+  padding: 16px 22px; background: rgba(9, 15, 28, 0.92);
+  border-top: 1px solid var(--linha); font-size: 13.5px; color: var(--texto-suave);
+}
+.mapa-aviso b { color: var(--verde); }
+
+.rotas { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 26px; }
+@media (min-width: 900px) { .rotas { display: grid; grid-template-columns: 1fr 1fr; margin-top: 0; } }
+.rota {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 15px; border-radius: 100px; font-size: 13px; font-weight: 600;
+  background: rgb(var(--verde-rgb) / .07); border: 1px solid var(--linha); color: var(--texto-suave);
+  transition: all var(--transicao);
+}
+.rota:hover { background: rgb(var(--verde-rgb) / .15); color: var(--verde); transform: translateY(-2px); }
+.rota::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--verde); }
+.rota--hub { border-color: rgb(var(--laranja-rgb) / .4); background: rgb(var(--laranja-rgb) / .09); }
+.rota--hub::before { background: var(--laranja); }
+.rota--hub:hover { color: var(--laranja); background: rgb(var(--laranja-rgb) / .18); }
+
+/* =========================================================
+   CREDENCIAIS
+   ========================================================= */
+.grelha-credenciais { display: grid; gap: 16px; margin-top: 50px; }
+@media (min-width: 620px)  { .grelha-credenciais { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .grelha-credenciais { grid-template-columns: repeat(4, 1fr); } }
+
+.cred {
+  padding: 24px; border-radius: var(--raio-sm);
+  background: var(--vidro); border: 1px solid var(--borda);
+  transition: all var(--transicao);
+}
+.cred:hover { background: rgb(var(--verde-rgb) / .06); border-color: rgb(var(--verde-rgb) / .28); transform: translateY(-4px); }
+.cred__rot { font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--verde); margin-bottom: 10px; }
+.cred__val { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; word-break: break-word; }
+.cred__desc { font-size: 15px; color: var(--texto-suave); }
+
+.citacao {
+  margin-top: 52px; padding: 34px 32px; border-radius: var(--raio);
+  background: linear-gradient(120deg, rgb(var(--verde-rgb) / .1), rgb(var(--laranja-rgb) / .07));
+  border: 1px solid var(--linha); border-left: 4px solid var(--laranja);
+  font-size: clamp(18px, 2.6vw, 27px); font-weight: 700; line-height: 1.4;
+  letter-spacing: -0.02em; max-width: 30ch;
+}
+.citacao footer { display: block; margin-top: 16px; font-size: 13.5px; font-weight: 600; color: var(--texto-fraco); letter-spacing: 0.04em; }
+
+/* =========================================================
+   APRESENTAÇÃO / VISÃO-MISSÃO-OBJETIVO
+   ========================================================= */
+.pilares { display: grid; gap: 18px; margin-top: 50px; }
+@media (min-width: 900px) { .pilares { grid-template-columns: repeat(3, 1fr); } }
+.pilar { padding: 32px 28px; border-radius: var(--raio); background: var(--base-2); border: 1px solid var(--borda); }
+.pilar__t { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
+.pilar__t svg { width: 22px; height: 22px; color: var(--verde); flex: none; }
+.pilar h3 { font-size: 17px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.pilar p { font-size: var(--corpo); color: var(--texto-suave); }
+
+/* =========================================================
+   FORMULÁRIO DE ORÇAMENTO
+   ------------------------------------------------------------
+   Vive em css/orcamento.css, carregado depois deste ficheiro.
+   O formulário de 4 passos que aqui vivia foi substituído pelo
+   assistente de 3 passos dentro do pop-up (Fase 1 do briefing).
+   ========================================================= */
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+.modal {
+  position: fixed; inset: 0; z-index: 120; display: none;
+  align-items: center; justify-content: center; padding: 20px;
+}
+.modal[data-aberto="true"] { display: flex; }
+.modal__fundo { position: absolute; inset: 0; background: rgba(5, 9, 18, 0.84); backdrop-filter: blur(8px); animation: fade 0.3s; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.modal__caixa {
+  position: relative; width: min(860px, 100%); max-height: 90svh; overflow-y: auto;
+  background: var(--base-2); border: 1px solid var(--linha); border-radius: var(--raio);
+  box-shadow: var(--sombra); padding: 32px; animation: sobe 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes sobe { from { opacity: 0; transform: translateY(28px) scale(0.97); } to { opacity: 1; transform: none; } }
+.modal__fechar {
+  position: absolute; top: 14px; right: 14px; z-index: 3;
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--vidro); color: var(--texto-suave);
+  transition: all var(--transicao);
+}
+.modal__fechar:hover { background: rgba(248, 113, 113, 0.2); color: var(--erro-txt); }
+.modal__fechar svg { width: 19px; height: 19px; }
+body.modal-aberto { overflow: hidden; }
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq { margin-top: 40px; display: grid; gap: 12px; max-width: 860px; }
+.faq__i {
+  border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--raio-sm);
+  background: var(--base-2); overflow: hidden; transition: border-color var(--transicao);
+}
+.faq__i[open] { border-color: var(--linha); }
+.faq__p {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 20px 24px; font-size: 16px; font-weight: 700; cursor: pointer; list-style: none;
+}
+.faq__p::-webkit-details-marker { display: none; }
+.faq__p::after {
+  content: "+"; flex: none; font-size: 24px; font-weight: 400; line-height: 1;
+  color: var(--verde); transition: transform var(--transicao);
+}
+.faq__i[open] .faq__p::after { transform: rotate(45deg); }
+.faq__p:hover { background: rgb(var(--verde-rgb) / .05); }
+.faq__p:focus-visible { outline: 2px solid var(--verde); outline-offset: -2px; }
+.faq__r { padding: 0 24px 24px; font-size: var(--corpo); color: var(--texto-suave); }
+.faq__r p + p { margin-top: 12px; }
+.faq__r b { color: var(--verde); }
+
+/* =========================================================
+   CONTACTOS / RODAPÉ
+   ========================================================= */
+.grelha-cont { display: grid; gap: 34px; margin-top: 46px; }
+@media (min-width: 900px) { .grelha-cont { grid-template-columns: 1.15fr 1fr; gap: 60px; } }
+
+.cont-lista { display: grid; gap: 14px; }
+.cont-item {
+  display: flex; gap: 16px; padding: 16px 20px; border-radius: 13px;
+  background: var(--vidro); border: 1px solid var(--borda);
+  transition: all var(--transicao);
+}
+.cont-item:hover { border-color: rgb(var(--verde-rgb) / .32); background: rgb(var(--verde-rgb) / .05); transform: translateX(5px); }
+.cont-item svg { width: 21px; height: 21px; color: var(--verde); flex: none; margin-top: 3px; }
+.cont-item b { display: block; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-fraco); margin-bottom: 3px; }
+.cont-item span { font-size: var(--corpo); font-weight: 600; }
+
+.carta-download {
+  margin-top: 24px; padding: 24px; border-radius: var(--raio);
+  background: linear-gradient(120deg, rgb(var(--verde-rgb) / .12), rgb(var(--laranja-rgb) / .08));
+  border: 1px solid var(--linha);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 18px; justify-content: space-between;
+}
+/* Selector de CLASSE, e nao `.carta-download h4`: o titulo do cartao e'
+   um `<h3 class="carta-download__t">` (index.html), e nao existe nenhum
+   `<h4>` la dentro. A regra antiga nao casava com nada, e o titulo ficava
+   com o tamanho e as margens por omissao do browser — 1.17em bold em vez
+   dos 18px/800 que se pretendia. */
+.carta-download__t { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+.carta-download p { font-size: 15px; color: var(--texto-suave); }
+
+/* A figura dos contactos. Fase 8C/C6: era o camião, passou a ser o
+   panfleto (a capa da carta de apresentação), e abre a carta — "porque
+   eles vão conhecer a empresa". O aspect-ratio vem das dimensões reais
+   declaradas no HTML, para a caixa não saltar enquanto a imagem carrega. */
+.cont-figura { margin: 0; max-width: 460px; justify-self: center; width: 100%; }
+.cont-figura__link { display: block; border-radius: var(--raio); transition: transform var(--transicao); }
+.cont-figura__link:hover { transform: translateY(-4px); }
+.cont-figura img {
+  border-radius: var(--raio); border: 1px solid var(--linha);
+  aspect-ratio: 794 / 1123; width: 100%; height: auto;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+.cont-figura figcaption { margin-top: 12px; font-size: 13.5px; color: var(--texto-fraco); text-align: center; }
+
+.rodape { border-top: 1px solid var(--linha); padding: 40px 0 34px; background: var(--rodape); }
+.rodape__topo { display: flex; flex-wrap: wrap; gap: 26px; align-items: center; justify-content: space-between; margin-bottom: 30px; }
+.rodape__logo { height: 46px; width: auto; }
+.rodape__fiscais { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 12.5px; color: var(--texto-fraco); }
+.rodape__fiscais b { color: var(--verde); font-weight: 700; }
+/* Fase 8C/C7: discreto, mas legível e visível — não é texto escondido. */
+.rodape__seo { display: grid; gap: 6px; margin-bottom: 24px; font-size: 13px; line-height: 1.6; color: var(--texto-fraco); }
+.rodape__seo b { color: var(--texto-suave); font-weight: 700; }
+.rodape__seo a { color: var(--texto-suave); text-decoration: underline; text-decoration-color: rgb(var(--verde-rgb) / .4); text-underline-offset: 3px; }
+.rodape__seo a:hover { color: var(--verde); }
+.rodape__base { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--borda); font-size: 12.5px; color: var(--texto-fraco); }
+/* B10: as acções do rodapé. O "Como chegar à JVI" ocupa a largura
+   toda e o pin do Google Maps também: é uma faixa de 44 px de altura com
+   o desenho ao centro, não um ícone do tamanho da letra encostado ao
+   texto. O `& svg` aninhado é o que o `tests/interface.test.js` lê; a
+   regra irmã logo abaixo cobre os browsers sem CSS aninhado. */
+.rodape__accoes { display: grid; gap: 12px; margin-bottom: 30px; }
+.btn-maps {
+  flex-direction: column; gap: 8px; width: 100%; padding-block: 14px 16px; border-radius: var(--raio);
+  & svg { display: block; width: 100%; height: 44px; color: #EA4335; }
+}
+.rodape__accoes .btn-maps svg { display: block; width: 100%; height: 44px; color: #EA4335; }
+/* Fase 9 (9.7): "o botão falar no WhatsApp está pequeno, coloque do mesmo
+   tamanho que o botão como chegar a JVI". Tinha a largura do texto,
+   encostado à esquerda. Passa a ter a MESMA caixa do botão do Maps — a
+   linha inteira, o ícone numa faixa de 44px por cima do texto — em todos
+   os ecrãs. `tests/hero-acoes.test.js` compara as duas regras. */
+.rodape__accoes .btn--wa { flex-direction: column; gap: 8px; width: 100%; padding-block: 14px 16px; border-radius: var(--raio); border: 1px solid transparent; }
+.rodape__accoes .btn--wa svg { display: block; width: 100%; height: 44px; }
+.rodape__links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+/* Fase 9 (9.8): eram texto de 12,5px com 20,6px de altura. O link fica
+   com a mesma letra, mas a área de toque sobe aos 44px. */
+.rodape__links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--texto-fraco); transition: color var(--transicao); }
+.rodape__links a:hover { color: var(--verde); }
+
+/* =========================================================
+   NOSSA EMPRESA (B9)
+   ========================================================= */
+.empresa { display: grid; gap: 40px; align-items: center; }
+@media (min-width: 860px) { .empresa { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; } }
+.empresa__carta { margin: 0; max-width: 520px; width: 100%; justify-self: center; }
+.empresa__carta img {
+  width: 100%; height: auto; border-radius: var(--raio-sm);
+  border: 1px solid var(--borda); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+.empresa__dados { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin-top: 28px; }
+.empresa__dados dt { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-fraco); }
+.empresa__dados dd { margin: 4px 0 0; font-weight: 700; color: var(--verde); }
+
+/* =========================================================
+   BOTÕES FIXOS (canto inferior direito)
+   ========================================================= */
+/* Fase 9 (9.8): `pointer-events: none` na caixa, `auto` nos botões. A
+   caixa tem a largura das legendas (156px), que estão invisíveis; os
+   botões só 48px. O resto era uma faixa transparente por cima da página
+   que engolia os toques. */
+.fixos {
+  position: fixed; right: 18px; bottom: 18px; z-index: 80;
+  display: flex; flex-direction: column; gap: 11px; align-items: flex-end;
+  pointer-events: none;
+}
+.fixo { display: flex; align-items: center; gap: 11px; }
+.fixo__txt {
+  font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 100px;
+  background: rgb(var(--base-rgb) / .92); border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px); white-space: nowrap;
+  opacity: 0; transform: translateX(14px); pointer-events: none;
+  transition: opacity var(--transicao), transform var(--transicao);
+}
+.fixo__btn {
+  width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center;
+  pointer-events: auto;
+  color: #fff; box-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.9);
+  transition: transform var(--transicao), box-shadow var(--transicao);
+}
+.fixo__btn svg { width: 27px; height: 27px; }
+.fixo__btn::after {
+  content: ""; position: absolute; width: 54px; height: 54px; border-radius: 50%;
+  border: 2px solid currentColor; opacity: 0; animation: pulso 2.6s ease-out infinite;
+}
+.fixo { position: relative; }
+.fixo__btn { position: relative; }
+@keyframes pulso { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(1.55); opacity: 0; } }
+.fixo--wa   .fixo__btn { background: var(--google-verde);    color: var(--sobre-wa); }
+.fixo--tel  .fixo__btn { background: var(--google-branco);   color: var(--base); }
+.fixo--mail .fixo__btn { background: var(--google-vermelho); color: var(--google-branco); }
+.fixo__btn:hover { transform: scale(1.1); }
+.fixo:hover .fixo__txt, .fixo__btn:focus-visible + .fixo__txt { opacity: 1; transform: translateX(0); }
+.fixo--wa .fixo__txt { color: var(--google-verde-claro); }
+.fixo--tel .fixo__txt { color: var(--google-branco); }
+.fixo--mail .fixo__txt { color: var(--google-vermelho-claro); }
+
+/* Fase 9 (9.8): no telemóvel os três botões são uma FILA no canto de
+   baixo. Em coluna tapavam 162px de altura na borda direita — o fim dos
+   três botões do hero ao mesmo tempo; em fila tapam 48px. As legendas só
+   aparecem com o rato por cima, que num ecrã de toque não existe. E o
+   rodapé guarda o espaço da fila, para o fim da página não ficar por
+   baixo dela. */
+@media (max-width: 560px) {
+  .fixos { right: 12px; bottom: 12px; gap: 9px; flex-direction: row; align-items: center; }
+  .fixo__btn { width: 48px; height: 48px; }
+  .fixo__btn svg { width: 24px; height: 24px; }
+  .fixo__btn::after { width: 48px; height: 48px; }
+  .fixo__txt { display: none; }
+  .rodape { padding-bottom: 84px; }
+}
+
+/* =========================================================
+   ANIMAÇÕES AO SCROLL
+   ========================================================= */
+.revelar { opacity: 0; transform: translateY(34px); transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); }
+.revelar[data-visivel="true"] { opacity: 1; transform: none; }
+.revelar-d { transition-delay: 0.1s; }
+.revelar-d2 { transition-delay: 0.2s; }
+.revelar-d3 { transition-delay: 0.3s; }
+
+.barra-topo {
+  position: fixed; top: 0; left: 0; z-index: 100; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--verde), var(--laranja));
+  transition: width 0.12s linear;
+}
+
+/* Entrada do hero */
+.hero__conteudo > * { opacity: 0; transform: translateY(26px); }
+.hero.pronto .hero__conteudo > * { animation: heroEntra 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.hero.pronto .hero__conteudo > *:nth-child(1) { animation-delay: 0.10s; }
+.hero.pronto .hero__conteudo > *:nth-child(2) { animation-delay: 0.22s; }
+.hero.pronto .hero__conteudo > *:nth-child(3) { animation-delay: 0.34s; }
+.hero.pronto .hero__conteudo > *:nth-child(4) { animation-delay: 0.46s; }
+.hero.pronto .hero__conteudo > *:nth-child(5) { animation-delay: 0.58s; }
+.hero.pronto .hero__conteudo > *:nth-child(6) { animation-delay: 0.70s; }
+@keyframes heroEntra { to { opacity: 1; transform: none; } }
+
+/* Palavras do titulo: cada uma acende quando o aviao passa
+   pela provincia correspondente. O JS escreve --p (0..1) em cada. */
+.hero h1 { display: grid; gap: 0 0.28em; }
+.h1linha { display: block; }
+.pal {
+  display: inline-block;
+  /* O piso é 0.62, não 0. Com 0.12 o título principal ficava a
+     1,26:1 — quase invisível — durante os ~7 segundos que a animação
+     do voo demora, e para sempre se o canvas não arrancar. A 0.62 o
+     pior estado dá ~4,4:1, acima do 3:1 que o WCAG exige para texto
+     grande. A animação passa a ser um acender, não um desaparecer.
+     O var(--p, 1) garante que sem JS o título fica totalmente
+     visível. */
+  opacity: calc(0.62 + 0.38 * var(--p, 1));
+  filter: blur(calc((1 - var(--p, 1)) * 3px));
+  transform: translateY(calc((1 - var(--p, 1)) * 0.28em));
+  transition: opacity .5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter .5s cubic-bezier(0.22, 1, 0.36, 1),
+              transform .5s cubic-bezier(0.22, 1, 0.36, 1);
+  background: linear-gradient(100deg, var(--verde) 0%, var(--verde-escuro) 55%, var(--laranja) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+.pal--feio { color: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .revelar { opacity: 1; transform: none; }
+  .hero__conteudo > * { opacity: 1; transform: none; }
+}
